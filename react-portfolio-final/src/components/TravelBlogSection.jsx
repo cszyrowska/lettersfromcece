@@ -5,7 +5,7 @@ import '../styles/TravelBlog.css'
 import travelPlaceholder from '../assets/travel_coming_soon.png'
 import train from '../assets/Scotland/train.jpg'
 
-const TRIPS = [
+export const TRIPS = [
   {
     id: 'scotland',
     slug: 'scotland', // 🔗 links to /travel/scotland
@@ -15,6 +15,17 @@ const TRIPS = [
     snippet:
       'A comparison of two ways I visited Scotland : Living slowly, and moving fast. ',
     image: train, // swap for a Scotland thumbnail later
+  },
+
+  {
+    id: 'paris',
+    slug: 'paris',
+    title: 'Paris, Twice: Love, Friendship & Falling for the City',
+    location: 'Paris, France',
+    date: 'January 2026',
+    snippet:
+      'A few days of metro rides, café windows and getting lost between the river and side streets.',
+    image: travelPlaceholder,
   },
 
 
@@ -39,16 +50,7 @@ const TRIPS = [
       'Safari mornings, soft coast evenings and dusty roads that feel like a film.',
     image: travelPlaceholder, // swap for a real Kenya thumbnail later
   },
-  {
-    id: 'paris',
-    slug: 'paris',
-    title: 'Paris',
-    location: 'Paris, France',
-    date: 'Spring 2026',
-    snippet:
-      'A few days of metro rides, café windows and getting lost between the river and side streets.',
-    image: travelPlaceholder,
-  },
+  
   {
     id: 'asia',
     slug: 'asia',

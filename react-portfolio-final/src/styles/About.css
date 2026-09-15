@@ -1,434 +1,217 @@
-/* src/styles/About.css */
-
-/* Overall section layout */
 .about-section {
-  margin-top: 5rem;
-  padding: 0 1rem 5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 4.5rem 0 0;
 }
 
-.about-header {
-  max-width: 48rem;
-  margin: 0 auto 3rem;
-  text-align: center;
-}
-
-.about-heading {
-  margin: 0 0 1rem;
-  font-size: clamp(2.8rem, 5vw, 3.6rem);
-  color: #f0c27b;
-  letter-spacing: 0.05em;
-}
-
-.about-intro {
-  margin: 0 auto;
-  font-size: clamp(1.15rem, 2vw, 1.35rem);
-  line-height: 1.8;
-  color: #f7e3d2;
-  max-width: 42rem;
-}
-
-/* Two-column layout: globe left, text right */
-.about-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 4.5rem;
-  /* Increased gap for more separation */
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  .about-layout {
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 7rem;
-    /* Increased horizontal gap */
-  }
-}
-
-/* Globe region */
-.globe-region {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Globe wrapper - size + 3D flip */
-.globe-wrapper {
+.cece-scene {
   position: relative;
-  width: 450px;
-  /* Bigger */
-  height: 450px;
-  /* Bigger */
-  perspective: 1200px;
-  /* enables 3D flip */
-}
-
-/* Flip card structure */
-.globe-flip {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.15, 1);
-}
-
-.globe-face {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-}
-
-/* Front: your existing globe */
-.globe-face-front {
-  /* the .globe-core and .globe-orbit live inside */
-}
-
-/* Back: image side */
-.globe-face-back {
-  transform: rotateY(180deg);
+  min-height: 350px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #050509;
-  box-shadow:
-    0 16px 24px rgba(0, 0, 0, 0.8),
-    0 0 0 2px rgba(2, 4, 8, 0.9);
 }
 
-.globe-back-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Hover: flip from front to back */
-.globe-wrapper:hover .globe-flip {
-  transform: rotateY(180deg);
-}
-
-/* The globe itself */
-.globe-core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  /* Core size scaled up */
-  height: 300px;
-  /* Core size scaled up */
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 30% 20%, #1c3f5a 0%, #081521 55%, #03070d 100%);
-  box-shadow:
-    0 16px 24px rgba(0, 0, 0, 0.8),
-    0 0 0 2px rgba(2, 4, 8, 0.9);
+.cece-character {
   position: relative;
-  overflow: hidden;
-}
-
-/* Globe meridians and latitudes (golden lines) */
-.globe-meridian,
-.globe-latitude {
-  position: absolute;
-  border-radius: 999px;
-  border: 1px solid rgba(240, 194, 123, 0.28);
-}
-
-.globe-meridian-vertical {
-  top: 8%;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  border-left-width: 1px;
-}
-
-.globe-meridian-diagonal-left {
-  top: 8%;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%) rotate(-25deg);
-  width: 0;
-  border-left-width: 1px;
-}
-
-.globe-meridian-diagonal-right {
-  top: 8%;
-  bottom: 8%;
-  left: 50%;
-  transform: translateX(-50%) rotate(25deg);
-  width: 0;
-  border-left-width: 1px;
-}
-
-.globe-latitude-top {
-  left: 8%;
-  right: 8%;
-  top: 28%;
-  height: 0;
-  border-top-width: 1px;
-}
-
-.globe-latitude-middle {
-  left: 8%;
-  right: 8%;
-  top: 50%;
-  height: 0;
-  border-top-width: 1px;
-}
-
-.globe-latitude-bottom {
-  left: 12%;
-  right: 12%;
-  top: 68%;
-  height: 0;
-  border-top-width: 1px;
-}
-
-/* Orbit layer the locations sit on */
-.globe-orbit {
-  position: absolute;
-  inset: 0;
-}
-
-/* Generic location base */
-.globe-location {
-  --angle: 0deg;
-  --distance: 200px;
-  /* Increased base distance */
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: center;
-  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(var(--distance) * -1));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Line and label size remains the same */
-.globe-location-line-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.globe-location-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: #f7e3b1;
-  border: 1px solid rgba(107, 72, 28, 0.9);
-  box-shadow: 0 0 8px rgba(247, 213, 150, 0.6);
-}
-
-.globe-location-line {
-  width: 2px;
-  height: 80px;
-  margin-top: 2px;
-  background: linear-gradient(to bottom,
-      rgba(240, 194, 123, 0.1),
-      rgba(240, 194, 123, 0.9));
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.globe-location-label {
-  margin-top: 0.45rem;
-  padding: 0.25rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(4, 1, 2, 0.96);
-  border: 1px solid rgba(240, 194, 123, 0.8);
-  font-size: 0.9rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #f7e3b1;
-  white-space: nowrap;
-  transform: rotate(calc(var(--angle) * -1));
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-/* Individual location angles / distances */
-.globe-location-uk {
-  --angle: -100deg;
-  /* upper-left */
-  --distance: 210px;
-}
-
-.globe-location-poland {
-  --angle: 50deg;
-  /* upper-right */
-  --distance: 180px;
-}
-
-.globe-location-france {
-  --angle: -5deg;
-  /* slightly up-right */
-  --distance: 150px;
-}
-
-.globe-location-spain {
-  --angle: 199deg;
-  /* down-left */
-  --distance: 150px;
-}
-
-.globe-location-scotland {
-  --angle: -80deg;
-  /* above/left of UK */
-  --distance: 225px;
-}
-
-.globe-location-iceland {
-  --angle: -65deg;
-  /* even further up-left */
-  --distance: 205px;
-}
-
-.globe-location-kenya {
-  --angle: 140deg;
-  /* down-right area (Africa-ish) */
-  --distance: 200px;
-}
-
-.globe-location-sea {
-  --angle: 110deg;
-  /* Asia area */
-  --distance: 210px;
-}
-
-
-
-/* Hover effect – glow on globe (still works when front is visible) */
-.globe-wrapper:hover .globe-location-line {
-  background: linear-gradient(to bottom,
-      rgba(255, 230, 190, 0.4),
-      rgba(255, 194, 95, 1));
-  box-shadow: 0 0 25px rgba(255, 194, 95, 0.7);
-}
-
-.globe-wrapper:hover .globe-location-label {
-  box-shadow: 0 0 25px rgba(255, 214, 150, 0.5);
-  transform: translate(0, -1px) rotate(calc(var(--angle) * -1));
-}
-
-.globe-wrapper:hover .globe-location-dot {
-  box-shadow: 0 0 12px 2px rgba(255, 214, 150, 0.8);
-}
-
-/* Right-side text */
-.about-side-copy {
-  max-width: 36rem;
-  font-size: clamp(1.15rem, 2vw, 1.3rem);
-  line-height: 1.9;
-  color: #f3e6d3;
-}
-
-.about-side-copy p {
-  margin: 0 0 1.2rem;
-}
-
-.about-side-copy p:last-child {
-  margin-bottom: 0;
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .globe-wrapper * {
-    transition: none !important;
-  }
-
-  .globe-flip {
-    transition: none !important;
-  }
-
-  .globe-wrapper:hover .globe-flip {
-    transform: none !important;
-  }
-
-  /* Keep hover visuals calm */
-  .globe-wrapper:hover .globe-location-line,
-  .globe-wrapper:hover .globe-location-label,
-  .globe-wrapper:hover .globe-location-dot {
-    animation: none !important;
-    background: linear-gradient(to bottom,
-        rgba(240, 194, 123, 0.1),
-        rgba(240, 194, 123, 0.9));
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
-    transform: rotate(calc(var(--angle) * -1));
-  }
-}
-
-/* CTA Buttons at Section Bottom */
-.about-cta-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-top: 3.5rem;
-}
-
-.about-cta-btn {
-  display: inline-block;
-  padding: 0.7rem 1.6rem;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  width: min(100%, 220px);
+  height: 340px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  
-  /* Outline styling matching existing page colors */
-  border: 1px solid rgba(240, 194, 123, 0.45);
-  background: rgba(21, 9, 11, 0.7);
-  color: #f7e3b1;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  filter: drop-shadow(0 15px 14px rgba(0, 0, 0, 0.24));
+  transition: filter 0.25s ease, transform 0.25s ease;
+  z-index: 2;
 }
 
-.about-cta-btn:hover,
-.about-cta-btn:focus-visible {
+.cece-character:hover,
+.cece-character:focus-visible {
+  filter: drop-shadow(0 17px 18px rgba(222, 174, 133, 0.2));
+  transform: scale(1.015);
   outline: none;
-  transform: translateY(-2px);
-  border-color: rgba(240, 194, 123, 0.95);
-  background: rgba(42, 26, 16, 0.9);
-  color: #f0c27b;
-  box-shadow: 
-    0 10px 22px rgba(0, 0, 0, 0.75),
-    0 0 14px rgba(240, 194, 123, 0.25);
 }
 
-.about-cta-btn:active {
-  transform: translateY(0);
-  background: rgba(24, 14, 8, 0.95);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+.cece-character:focus-visible {
+  outline: 1px dashed rgba(237, 201, 163, 0.8);
+  outline-offset: 0.5rem;
 }
 
-/* Keyboard focus styling */
-.about-cta-btn:focus-visible {
-  outline: 2px solid #f0c27b;
-  outline-offset: 3px;
+.cece-character-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
-/* Mobile responsive styling for buttons */
-@media (max-width: 600px) {
-  .about-cta-container {
-    flex-direction: column;
-    align-items: stretch;
-    max-width: 280px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 0.8rem;
+.cece-character.is-changing .cece-character-image {
+  animation: cece-expression-change 280ms ease both;
+}
+
+.cece-speech {
+  position: absolute;
+  top: 0.4rem;
+  left: 50%;
+  z-index: 3;
+  width: 11.5rem;
+  padding: 0.75rem 0.8rem;
+  border: 2px solid #705247;
+  border-radius: 47% 53% 49% 51% / 46% 48% 52% 54%;
+  background:
+    repeating-linear-gradient(0deg, rgba(117, 83, 64, 0.035), rgba(117, 83, 64, 0.035) 1px, transparent 1px, transparent 4px),
+    #f6ead7;
+  box-shadow: 4px 6px 0 rgba(62, 38, 34, 0.18);
+  color: #503a34;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.82rem;
+  line-height: 1.35;
+  text-align: center;
+  transform: translateX(-35%) rotate(-4deg);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.cece-speech::after {
+  content: '';
+  position: absolute;
+  right: 0.7rem;
+  bottom: -0.5rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-right: 2px solid #705247;
+  border-bottom: 2px solid #705247;
+  background: #f6ead7;
+  transform: rotate(35deg) skew(12deg, 12deg);
+}
+
+.cece-speech i {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.75rem;
+  width: 0.25rem;
+  height: 0.25rem;
+  border-radius: 50%;
+  background: #bf7d70;
+  box-shadow: -0.45rem 0.35rem 0 #d9ae8d;
+}
+
+.cece-speech.is-instruction {
+  color: #865b50;
+  transform: translateX(-35%) rotate(-4deg) translateY(0.15rem);
+}
+
+.cece-speech.is-visible {
+  transform: translateX(-35%) rotate(-2deg);
+}
+
+.about-letter {
+  position: relative;
+  align-self: start;
+  width: min(100%, 270px);
+  margin-top: 5.4rem;
+  padding: 1.55rem 1.25rem 1.6rem;
+  min-height: 230px;
+  background:
+    linear-gradient(180deg, rgba(250, 247, 240, 0.98), rgba(238, 229, 215, 0.98)),
+    repeating-linear-gradient(0deg, rgba(101, 79, 68, 0.02), rgba(101, 79, 68, 0.02) 1px, transparent 1px, transparent 5px);
+  border: 1px solid rgba(94, 71, 62, 0.18);
+  box-shadow: 7px 12px 0 rgba(50, 29, 29, 0.14), 0 18px 24px rgba(0, 0, 0, 0.16);
+  color: #47352f;
+  transform: rotate(3deg);
+}
+
+.about-letter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: linear-gradient(135deg, rgba(151, 112, 88, 0.14), rgba(151, 112, 88, 0.02));
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.about-letter-label {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #85584e;
+}
+
+.about-letter p {
+  margin: 0;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.78rem;
+  line-height: 1.75;
+}
+
+.about-letter-stamp {
+  position: absolute;
+  right: 0.7rem;
+  top: 0.7rem;
+  display: flex;
+  width: 2.8rem;
+  height: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(116, 88, 76, 0.45);
+  border-radius: 0.3rem;
+  color: #85584e;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: rotate(9deg);
+}
+
+.about-letter-mark {
+  display: block;
+  margin-top: 0.7rem;
+  color: #ad6158;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+@keyframes cece-expression-change {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.98);
   }
-  
-  .about-cta-btn {
-    text-align: center;
-    padding: 0.8rem 1.2rem;
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 900px) {
+  .about-section {
+    padding: 0;
+  }
+
+  .cece-scene {
+    min-height: 330px;
+  }
+
+  .cece-character {
+    width: 180px;
+    height: 290px;
+  }
+
+  .cece-speech {
+    top: 0;
+    left: 50%;
+    width: 10.5rem;
+    transform: translateX(-50%) rotate(-3deg);
+  }
+
+  .cece-speech.is-instruction,
+  .cece-speech.is-visible {
+    transform: translateX(-50%) rotate(-3deg);
+  }
+
+  .about-letter {
+    width: min(100%, 280px);
+    margin: 0 auto;
   }
 }

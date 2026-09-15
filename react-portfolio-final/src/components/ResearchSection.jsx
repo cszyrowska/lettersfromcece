@@ -5,7 +5,7 @@ import '../styles/Research.css'
 import dnaPhoto from '../assets/dna_origami_research.png'
 import rehabPhoto from '../assets/rehabilitation_research.png'
 
-const PROJECTS = [
+export const PROJECTS = [
   {
     id: 'criminal-rehabilitation',
 

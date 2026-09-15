@@ -2,18 +2,16 @@
 import { useEffect, useState } from 'react'
 import '../styles/Home.css'
 import AboutSection from './AboutSection.jsx'
-import ResearchSection from './ResearchSection.jsx'
+import MiddleColumn from './MiddleColumn.jsx'
+import AboutLetter from './AboutLetter.jsx'
 import CurrentWork from './CurrentWork.jsx'
 import ExperienceSection from './ExperienceSection.jsx'
 import AimsSection from './AimsSection.jsx'
-import TravelBlogSection from './TravelBlogSection.jsx'
 import ContactSection from './ContactSection.jsx'
-
-
 
 function CompassRose() {
   return (
-    <div className="compass-wrapper">
+    <div className="compass-wrapper" aria-hidden="true">
       <svg
         className="compass-svg compass-spin"
         viewBox="0 0 24 24"
@@ -41,6 +39,7 @@ function AirplaneIcon({ scrollProgress }) {
       style={{
         transform: `translateX(calc(${translateX}% - 1rem))`,
       }}
+      aria-hidden="true"
     >
       <svg
         className="airplane-svg"
@@ -83,136 +82,95 @@ export default function Home() {
   return (
     <main className="home-main">
       <div className="home-inner">
-        {/* NEW: two separate hero boxes next to each other */}
-        <header className="hero-shell">
-          {/* Left box: name + intro */}
-          <section className="hero-card hero-card-main">
-            <div className="hero-left">
-              <p className="hero-tagline">PORTFOLIO</p>
-
-              <div className="hero-name-row">
-                <CompassRose />
-                <div>
-                  <h1 className="hero-title name-animation">
-                    Cecylia Szyrowska
-                  </h1>
-                  <p className="hero-subtitle">
-                    Prospective Psychology Student · Young Researcher · Youth Education Practitioner
-                  </p>
-                </div>
-              </div>
-
-              <p className="hero-copy">
-                I am a UK-educated Polish applicant with a strong interest in developmental,
-                clinical and forensic psychology. My experience combines academic research,
-                scientific communication and practical work supporting children through dance,
-                performance and education.
-              </p>
-
-              <div className="hero-meta">
-                <span className="meta-pill">Based in Plymouth, UK</span>
-              </div>
+        <header className="letters-hero">
+          <div className="letters-hero-copy">
+            <div className="letters-label-row">
+              <span className="letters-badge">letters from cece</span>
+              <span className="letters-badge subtle">travel diary · university life</span>
             </div>
-          </section>
 
-          {/* Right box: travel log */}
-          <aside className="hero-card hero-card-travel">
-            <div className="hero-right">
-              <div className="passport-card">
-                <p className="passport-title">Travel log</p>
-                <ul className="passport-list">
-                  <li>
-                    <a href="#about" className="passport-link">
-                      <span className="passport-main">About me</span>
-                      <span className="passport-sub">
-                        A small introduction to who I am
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#blog" className="passport-link">
-                      <span className="passport-main">
-                        travel blog
-                      </span>
-                      <span className="passport-sub">
-                        My biggest passion - travel. See where I have been and plan to go
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#current-work" className="passport-link">
-                      <span className="passport-main">
-                        Current work and service
-                      </span>
-                      <span className="passport-sub">
-                        What I&apos;m building and how I&apos;m gaining experience.
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#experience" className="passport-link">
-                      <span className="passport-main">Work experience</span>
-                      <span className="passport-sub">
-                        Roles, projects, and lessons from the journey.
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#achievements" className="passport-link">
-                      <span className="passport-main">
-                        Achievements and aspirations
-                      </span>
-                      <span className="passport-sub">
-                        Highlights so far and the dreams ahead.
-                      </span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#contact" className="passport-link">
-                      <span className="passport-main">Contact</span>
-                      <span className="passport-sub">
-                        Get in touch, or view my socials
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+            <h1 className="letters-title">
+              <span className="title-script">Letters</span>
+              <span className="title-block">from Cece</span>
+            </h1>
+
+            <p className="letters-intro">
+              I&apos;m collecting the beautiful, ordinary, slightly magical bits of growing up
+              between cities, classrooms, camera rolls and the kind of moments that deserve a
+              slower second look.
+            </p>
+
+            <div className="letters-actions">
+              <a href="#blog" className="primary-action">Read the latest letter</a>
+              <a href="#postcards" className="secondary-action">Browse postcards</a>
             </div>
-          </aside>
+
+            <ul className="letters-stats" aria-label="Site highlights">
+              <li>
+                <strong>8</strong>
+                <span>cities</span>
+              </li>
+              <li>
+                <strong>3</strong>
+                <span>study years</span>
+              </li>
+              <li>
+                <strong>∞</strong>
+                <span>little joys</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="letters-visual" aria-label="Decorative scrapbook collage">
+            <div className="paper-cluster">
+              <a href="#blog" className="paper-item paper-letter" aria-label="Read the latest letter">
+                <span className="mini-label">latest letter</span>
+                <span className="postage-stamp">Paris</span>
+                <h2>How to fall in love with a city slowly</h2>
+                <p>
+                  On rainy mornings, train platforms, and the soft thrill of noticing a place become
+                  yours a little at a time.
+                </p>
+              </a>
+
+              <div className="paper-item paper-note" aria-label="Little reminder note">
+                <span className="mini-label">little reminder ♡</span>
+                <p className="note-script">Notice the beautiful thing<br />before it becomes ordinary.</p>
+              </div>
+
+              <a href="#blog" className="paper-item paper-notebook" aria-label="Open travel notes">
+                <span className="mini-label">in my notebook</span>
+                <h3>travel notes</h3>
+                <p>Photo rolls, useful finds and thoughts I want to keep.</p>
+              </a>
+            </div>
+          </div>
         </header>
 
-        {/* Divider with subtle travel line */}
+        <nav className="letters-nav" aria-label="Main site sections">
+          <a href="#blog">Letters</a>
+          <a href="#postcards">Postcards</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
         <div className="hero-divider">
           <div className="travel-line">
             <AirplaneIcon scrollProgress={scrollProgress} />
           </div>
-          <p className="hero-note">Scroll to board the journey</p>
+          <p className="hero-note">follow the route</p>
         </div>
 
-        {/* About me with globe */}
-        <AboutSection />
-
-        {/* Research section */}
-        <ResearchSection />
-
-        {/* Travel blog – image cards linking to full trip pages */}
-        <TravelBlogSection />
-
-        {/* Current work (only what you’re doing now) */}
+        <div className="home-content-columns">
+          <AboutSection />
+          <MiddleColumn />
+          <AboutLetter />
+        </div>
         <CurrentWork />
-
-        {/* Work experience timeline */}
         <ExperienceSection />
-
-        {/* Aims & aspirations – interactive future routes */}
         <AimsSection />
-
-
-
-
         <ContactSection />
       </div>
     </main>
-
   )
 }
