@@ -1,0 +1,531 @@
+.social-phone {
+  width: min(300px, calc(100% + 20px));
+  margin: 1.6rem 0 0;
+  text-align: center;
+}
+
+/* =========================================================
+   CLOSED PHONE
+   ========================================================= */
+
+.closed-phone-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.closed-phone-button:hover,
+.closed-phone-button:focus-visible {
+  transform: scale(1.015);
+}
+
+.closed-phone-button:focus-visible,
+.phone-arrow-hotspot:focus-visible {
+  outline: 2px dashed rgba(225, 190, 146, 0.95);
+  outline-offset: 4px;
+}
+
+.closed-phone-button img,
+.open-phone-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Phone buzz */
+.social-phone.has-entered:not(.is-open) .closed-phone-button {
+  animation: phone-vibrate 3.8s ease-in-out infinite;
+  animation-delay: 1.2s;
+  transform-origin: center center;
+}
+
+/* =========================================================
+   OPEN PHONE
+   ========================================================= */
+
+.social-phone.is-open {
+  width: min(400px, calc(100% + 50px));
+}
+
+.social-phone.is-open .open-phone-wrapper {
+  animation: phone-open 260ms ease-out both;
+}
+
+.open-phone-wrapper {
+  position: relative;
+}
+
+/* =========================================================
+   LITTLE CAPTION UNDER PHONE
+   ========================================================= */
+
+.social-phone-label {
+  margin: 0.35rem 0 0;
+
+  color: #c79f86;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.72rem;
+}
+
+.social-phone-guide {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+}
+
+/* =========================================================
+   PHONE SCREEN
+   ========================================================= */
+
+.phone-screen-overlay {
+  position: absolute;
+
+  top: 14.45%;
+  left: 36.1%;
+
+  width: 28.1%;
+  height: 23.6%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  padding: 5% 6%;
+
+  border-radius: 5%;
+
+  /*
+   * Old green-grey LCD screen
+   */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(214, 229, 215, 0.98),
+      rgba(174, 201, 183, 0.98)
+    );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(44, 72, 58, 0.24),
+    inset 0 0 14px rgba(52, 86, 68, 0.25),
+    inset 0 3px 5px rgba(255, 255, 255, 0.28),
+    0 0 7px rgba(176, 215, 190, 0.18);
+
+  color: #233b30;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 1px rgba(35, 59, 48, 0.28);
+}
+
+/*
+ * Very subtle LCD scan lines
+ */
+.phone-screen-overlay::before {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(42, 68, 55, 0.025) 0,
+      rgba(42, 68, 55, 0.025) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+}
+
+/*
+ * Gentle old-screen vignette
+ */
+.phone-screen-overlay::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  box-shadow:
+    inset 0 0 10px rgba(32, 55, 44, 0.16);
+}
+
+/* =========================================================
+   SCREEN CONTENT
+   ========================================================= */
+
+.phone-screen-copy {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family:
+    'Courier New',
+    Courier,
+    monospace;
+
+  font-size: clamp(0.38rem, 1.15vw, 0.62rem);
+
+  line-height: 1.15;
+}
+
+.phone-screen-copy strong {
+  font-weight: 700;
+}
+
+/* =========================================================
+   INTRO / MESSAGE SCREEN
+   ========================================================= */
+
+.phone-screen-intro {
+  flex-direction: column;
+  gap: 0.28rem;
+}
+
+.phone-screen-intro strong {
+  max-width: 90%;
+
+  font-size: 1.05em;
+  line-height: 1.15;
+
+  text-transform: lowercase;
+}
+
+.phone-screen-intro > span:not(.phone-screen-status) {
+  font-size: 0.72em;
+  opacity: 0.72;
+}
+
+/* =========================================================
+   LITTLE STATUS BAR
+   ========================================================= */
+
+.phone-screen-status {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  box-sizing: border-box;
+
+  padding: 0 0.1rem;
+
+  font-size: 0.63em;
+  line-height: 1;
+
+  opacity: 0.72;
+
+  letter-spacing: -0.02em;
+}
+
+/* =========================================================
+   SOCIAL MEDIA SCREEN
+   ========================================================= */
+
+.phone-screen-social {
+  flex-direction: column;
+
+  gap: 0;
+
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+ * Icon + name are ONE link.
+ */
+.phone-social-link {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.32rem;
+
+  min-width: 75%;
+  min-height: 70%;
+
+  padding: 0.15rem;
+
+  border-radius: 0.35rem;
+
+  color: #233b30;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  transition:
+    transform 150ms ease,
+    background 150ms ease,
+    opacity 150ms ease;
+}
+
+.phone-social-link:hover {
+  background: rgba(38, 64, 51, 0.07);
+
+  transform: scale(1.045);
+}
+
+.phone-social-link:focus-visible {
+  outline: 1px dashed rgba(35, 59, 48, 0.75);
+  outline-offset: 2px;
+
+  background: rgba(38, 64, 51, 0.07);
+}
+
+/* =========================================================
+   SOCIAL ICON
+   ========================================================= */
+
+.phone-platform-icon {
+  display: flex;
+
+  width: 2.2em;
+  height: 2.2em;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  border: 1.5px solid currentColor;
+
+  font-size: 1.4em;
+  font-weight: 700;
+
+  line-height: 1;
+}
+
+/*
+ * TikTok icon feels slightly square.
+ */
+.phone-platform-tiktok {
+  border-radius: 0.3em;
+}
+
+/*
+ * Instagram gets the classic rounded camera shape.
+ */
+.phone-platform-instagram {
+  border-radius: 0.58em;
+}
+
+/* =========================================================
+   SOCIAL PLATFORM NAME
+   ========================================================= */
+
+.phone-social-link strong {
+  display: block;
+
+  font-size: 0.95em;
+  line-height: 1;
+
+  letter-spacing: 0.04em;
+
+  text-transform: uppercase;
+}
+
+/*
+ * Tiny old-phone selection marker
+ */
+.phone-social-link::after {
+  content: 'open';
+
+  display: block;
+
+  margin-top: 0.06rem;
+
+  font-size: 0.48em;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateY(2px);
+
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+}
+
+.phone-social-link:hover::after,
+.phone-social-link:focus-visible::after {
+  opacity: 0.62;
+  transform: translateY(0);
+}
+
+/* =========================================================
+   PHYSICAL PHONE ARROW HOTSPOTS
+   ========================================================= */
+
+.phone-arrow-hotspot {
+  position: absolute;
+
+  top: 54.5%;
+
+  width: 9.5%;
+  height: 7.5%;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  transition:
+    background 120ms ease,
+    transform 120ms ease;
+}
+
+.phone-arrow-hotspot:hover {
+  background: rgba(74, 103, 91, 0.09);
+}
+
+.phone-arrow-hotspot:active {
+  background: rgba(74, 103, 91, 0.15);
+  transform: scale(0.94);
+}
+
+.phone-arrow-left {
+  left: 40.5%;
+}
+
+.phone-arrow-right {
+  left: 50.5%;
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes phone-vibrate {
+  0%,
+  76%,
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  78% {
+    transform: translate(-4px, -1px) rotate(-2.8deg);
+  }
+
+  80% {
+    transform: translate(4px, 1px) rotate(2.8deg);
+  }
+
+  82% {
+    transform: translate(-3px, 1px) rotate(-2deg);
+  }
+
+  84% {
+    transform: translate(3px, 0) rotate(2deg);
+  }
+
+  86% {
+    transform: translate(-1.5px, 0) rotate(-1deg);
+  }
+
+  88% {
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+@keyframes phone-open {
+  from {
+    opacity: 0.45;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================================================
+   TABLET / SMALLER SCREENS
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .social-phone {
+    width: min(290px, 100%);
+    margin: 1rem auto 0;
+  }
+
+  .social-phone.is-open {
+    width: min(320px, 100%);
+  }
+
+  .phone-screen-copy {
+    font-size: clamp(0.34rem, 1.8vw, 0.48rem);
+    line-height: 1.05;
+  }
+
+  .phone-social-link {
+    gap: 0.2rem;
+  }
+
+  .phone-platform-icon {
+    width: 2em;
+    height: 2em;
+    font-size: 1.25em;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .social-phone.has-entered:not(.is-open) .closed-phone-button,
+  .closed-phone-button,
+  .social-phone.is-open .open-phone-wrapper,
+  .phone-social-link,
+  .phone-social-link::after,
+  .phone-arrow-hotspot {
+    transition: none;
+    animation: none;
+  }
+}

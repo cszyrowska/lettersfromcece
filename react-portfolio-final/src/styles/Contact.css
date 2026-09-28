@@ -1,116 +1,830 @@
 /* src/styles/Contact.css */
 
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
 .contact-section {
-  margin-top: 4rem;
-  margin-bottom: 3rem;
+  position: relative;
+
+  width: min(100%, 980px);
+
+  margin:
+    7rem
+    auto
+    4rem;
+
+  padding:
+    0
+    1rem;
 }
 
-.contact-header {
-  text-align: center;
-  margin-bottom: 1.4rem;
+
+/* =========================================================
+   MAIN COMPOSITION
+   ========================================================= */
+
+.contact-shell {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.05fr)
+    minmax(280px, 0.95fr);
+
+  align-items: stretch;
+
+  gap:
+    clamp(
+      1.5rem,
+      4vw,
+      3.5rem
+    );
 }
 
-.contact-label {
-  margin: 0 0 0.4rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.22em;
+
+/* =========================================================
+   LEFT — LETTER
+   ========================================================= */
+
+.contact-letter {
+  position: relative;
+
+  min-height: 410px;
+
+  box-sizing: border-box;
+
+  padding:
+    3.4rem
+    3.2rem
+    2.8rem;
+
+  overflow: visible;
+
+  color: #4a3530;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(110, 82, 67, 0.028) 0,
+      rgba(110, 82, 67, 0.028) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    linear-gradient(
+      180deg,
+      #f3e7d5 0%,
+      #ead9c2 100%
+    );
+
+  border:
+    1px solid
+    rgba(100, 72, 60, 0.18);
+
+  box-shadow:
+    0 24px 50px
+    rgba(0, 0, 0, 0.3);
+
+  clip-path:
+    polygon(
+      1% 2%,
+      98% 0,
+      100% 97%,
+      96% 100%,
+      3% 98%,
+      0 5%
+    );
+
+  transform:
+    rotate(-1deg);
+}
+
+
+/* =========================================================
+   TAPE
+   ========================================================= */
+
+.contact-tape {
+  position: absolute;
+
+  top: -0.65rem;
+  left: 50%;
+
+  width: 82px;
+  height: 24px;
+
+  background:
+    rgba(226, 204, 164, 0.72);
+
+  border:
+    1px solid
+    rgba(107, 82, 63, 0.08);
+
+  transform:
+    translateX(-50%)
+    rotate(2deg);
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(255, 255, 255, 0.12);
+}
+
+
+/* =========================================================
+   LETTER TEXT
+   ========================================================= */
+
+.contact-kicker {
+  margin:
+    0
+    0
+    1rem;
+
+  color: #986a5e;
+
+  font-size: 0.61rem;
+
+  letter-spacing: 0.24em;
+
   text-transform: uppercase;
-  color: rgba(178, 205, 245, 0.8); /* cool accent */
 }
+
 
 .contact-heading {
+  max-width: 430px;
+
   margin: 0;
-  font-size: clamp(1.8rem, 3.8vw, 2.2rem);
-  letter-spacing: 0.06em;
-  color: #f3e9d9;
+
+  color: #4b342f;
+
+  font-family:
+    Georgia,
+    'Times New Roman',
+    serif;
+
+  font-size:
+    clamp(
+      2.5rem,
+      5vw,
+      4.3rem
+    );
+
+  font-weight: 500;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.035em;
 }
 
-/* Icon row */
 
-.contact-icon-row {
-  display: flex;
-  justify-content: center;
-  gap: 1.8rem;
-  margin-top: 1.2rem;
+.contact-handwritten {
+  width: fit-content;
+
+  margin:
+    1.15rem
+    0
+    1.4rem;
+
+  color: #b26f68;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.85rem;
+
+  transform:
+    rotate(-2deg);
 }
 
-.contact-icon-link {
-  text-decoration: none;
-  color: inherit;
-  transition:
-    transform 0.15s ease,
-    color 0.15s ease;
+
+.contact-copy {
+  max-width: 420px;
+
+  margin:
+    0
+    0
+    1.9rem;
+
+  color:
+    rgba(
+      74,
+      53,
+      48,
+      0.76
+    );
+
+  font-size: 0.96rem;
+
+  line-height: 1.8;
 }
 
-/* Circular icon look, no hard borders */
-.contact-icon-circle {
-  width: 5.5rem;
-  height: 5.5rem;
-  border-radius: 999px;
-  display: flex;
+
+/* =========================================================
+   EMAIL LINK
+   ========================================================= */
+
+.contact-email-link {
+  display: inline-flex;
+
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.02);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 8px 18px rgba(0, 0, 0, 0.6);
-  color: rgba(210, 210, 215, 0.7); /* soft grey */
+
+  gap: 0.8rem;
+
+  padding:
+    0.45rem
+    0;
+
+  color: #985f5a;
+
+  text-decoration: none;
+
+  border-bottom:
+    1px dashed
+    rgba(152, 95, 90, 0.5);
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.88rem;
+
   transition:
-    background 0.15s ease,
-    box-shadow 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease;
+    gap 180ms ease,
+    color 180ms ease;
 }
 
-.contact-icon-glyph {
-  font-size: 2rem;
-  line-height: 1;
-  letter-spacing: 0.05em;
+
+.contact-email-link:hover,
+.contact-email-link:focus-visible {
+  gap: 1.05rem;
+
+  color: #713f43;
 }
 
-/* Hover / focus → gold */
-.contact-icon-link:hover .contact-icon-circle,
-.contact-icon-link:focus-visible .contact-icon-circle {
-  background: radial-gradient(
-    circle at 30% 20%,
-    rgba(255, 245, 220, 0.18),
-    rgba(60, 35, 10, 0.9)
-  );
-  box-shadow:
-    0 0 0 1px rgba(240, 194, 123, 0.7),
-    0 10px 22px rgba(0, 0, 0, 0.85);
-  color: #f0c27b; /* gold */
-  transform: translateY(-2px);
+
+.contact-email-link:focus-visible {
+  outline:
+    1px dashed
+    #713f43;
+
+  outline-offset: 0.35rem;
 }
 
-/* Active click */
-.contact-icon-link:active .contact-icon-circle {
-  transform: translateY(0);
-  color: #f7d9a0;
+
+.contact-email-arrow {
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 1rem;
 }
 
-/* Small screens */
+
+/* =========================================================
+   SIGN OFF
+   ========================================================= */
+
+.contact-signoff {
+  position: absolute;
+
+  right: 2.4rem;
+  bottom: 2rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  color: #735249;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  transform:
+    rotate(-3deg);
+}
+
+
+.contact-signoff span {
+  font-size: 0.65rem;
+}
+
+
+.contact-signoff strong {
+  margin-top: 0.15rem;
+
+  font-size: 1rem;
+
+  font-weight: 400;
+}
+
+
+/* =========================================================
+   RIGHT — POSTAGE PANEL
+   ========================================================= */
+
+.contact-postage {
+  position: relative;
+
+  align-self: center;
+
+  padding:
+    2.5rem
+    0.4rem
+    1.5rem;
+}
+
+
+/* =========================================================
+   POSTMARK
+   ========================================================= */
+
+.contact-postmark {
+  position: absolute;
+
+  top: -0.3rem;
+  right: 0.6rem;
+
+  display: flex;
+
+  width: 92px;
+  height: 92px;
+
+  box-sizing: border-box;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border:
+    1px solid
+    rgba(199, 148, 118, 0.34);
+
+  border-radius: 50%;
+
+  color:
+    rgba(
+      211,
+      165,
+      139,
+      0.55
+    );
+
+  text-align: center;
+
+  transform:
+    rotate(8deg);
+}
+
+
+.contact-postmark::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 6px;
+
+  border:
+    1px dashed
+    rgba(199, 148, 118, 0.22);
+
+  border-radius: 50%;
+}
+
+
+.contact-postmark span {
+  font-size: 0.42rem;
+
+  letter-spacing: 0.14em;
+}
+
+
+.contact-postmark strong {
+  margin:
+    0.15rem
+    0;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 0.68rem;
+
+  font-weight: 500;
+
+  letter-spacing: 0.07em;
+}
+
+
+/* =========================================================
+   RIGHT TITLE
+   ========================================================= */
+
+.contact-postage-title {
+  margin:
+    0
+    0
+    1.5rem;
+
+  color: #d8b294;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.8rem;
+}
+
+
+/* =========================================================
+   SOCIAL LINK LIST
+   ========================================================= */
+
+.contact-link-list {
+  display: grid;
+
+  gap: 0;
+}
+
+
+/* =========================================================
+   INDIVIDUAL LINK
+   ========================================================= */
+
+.contact-link {
+  display: grid;
+
+  grid-template-columns:
+    3.2rem
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  min-height: 74px;
+
+  padding:
+    0.75rem
+    0.25rem;
+
+  color: #ead9ca;
+
+  text-decoration: none;
+
+  border-bottom:
+    1px solid
+    rgba(221, 180, 150, 0.12);
+
+  transition:
+    padding-left 180ms ease,
+    color 180ms ease;
+}
+
+
+.contact-link:first-child {
+  border-top:
+    1px solid
+    rgba(221, 180, 150, 0.12);
+}
+
+
+.contact-link:hover,
+.contact-link:focus-visible {
+  padding-left: 0.5rem;
+
+  color: #f7e8dc;
+}
+
+
+.contact-link:focus-visible {
+  outline:
+    1px dashed
+    rgba(220, 168, 137, 0.55);
+
+  outline-offset: 0.25rem;
+}
+
+
+/* =========================================================
+   LITTLE STAMP ICON
+   ========================================================= */
+
+.contact-stamp {
+  display: grid;
+
+  width: 3rem;
+  height: 3rem;
+
+  place-items: center;
+
+  box-sizing: border-box;
+
+  border:
+    1px dashed
+    rgba(214, 162, 131, 0.45);
+
+  color: #d4a282;
+
+  background:
+    rgba(122, 71, 66, 0.14);
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 0.82rem;
+
+  letter-spacing: 0.04em;
+
+  transform:
+    rotate(-3deg);
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
+}
+
+
+.contact-link:nth-child(even)
+.contact-stamp {
+  transform:
+    rotate(3deg);
+}
+
+
+.contact-link:hover
+.contact-stamp,
+.contact-link:focus-visible
+.contact-stamp {
+  background:
+    rgba(146, 83, 76, 0.24);
+
+  transform:
+    rotate(0deg)
+    translateY(-2px);
+}
+
+
+/* =========================================================
+   LINK COPY
+   ========================================================= */
+
+.contact-link-copy {
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  gap: 0.2rem;
+}
+
+
+.contact-link-copy strong {
+  font-family:
+    Georgia,
+    'Times New Roman',
+    serif;
+
+  font-size: 1rem;
+
+  font-weight: 500;
+}
+
+
+.contact-link-copy small {
+  color:
+    rgba(
+      226,
+      203,
+      186,
+      0.48
+    );
+
+  font-size: 0.68rem;
+
+  letter-spacing: 0.035em;
+}
+
+
+.contact-link-arrow {
+  color:
+    rgba(
+      212,
+      162,
+      130,
+      0.45
+    );
+
+  font-size: 0.85rem;
+
+  transition:
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+
+.contact-link:hover
+.contact-link-arrow,
+.contact-link:focus-visible
+.contact-link-arrow {
+  color: #dda98a;
+
+  transform:
+    translate(
+      2px,
+      -2px
+    );
+}
+
+
+/* =========================================================
+   BOTTOM NOTE
+   ========================================================= */
+
+.contact-footer-note {
+  width: fit-content;
+
+  margin:
+    2.2rem
+    auto
+    0;
+
+  color:
+    rgba(
+      218,
+      179,
+      153,
+      0.5
+    );
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.7rem;
+
+  text-align: center;
+
+  transform:
+    rotate(-1deg);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 820px) {
+
+  .contact-section {
+    margin-top: 5rem;
+  }
+
+
+  .contact-shell {
+    grid-template-columns: 1fr;
+
+    width:
+      min(
+        100%,
+        600px
+      );
+
+    margin: 0 auto;
+  }
+
+
+  .contact-letter {
+    min-height: 390px;
+  }
+
+
+  .contact-postage {
+    padding-top: 4rem;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 540px) {
-  .contact-icon-row {
-    gap: 1.4rem;
+
+  .contact-section {
+    padding:
+      0
+      0.3rem;
+
+    margin-top: 4rem;
   }
 
-  .contact-icon-circle {
-    width: 2.8rem;
-    height: 2.8rem;
+
+  .contact-letter {
+    min-height: 0;
+
+    padding:
+      2.7rem
+      1.6rem
+      5.5rem;
   }
 
-  .contact-icon-glyph {
-    font-size: 1.4rem;
+
+  .contact-heading {
+    font-size:
+      clamp(
+        2.4rem,
+        13vw,
+        3.4rem
+      );
   }
+
+
+  .contact-copy {
+    font-size: 0.9rem;
+  }
+
+
+  .contact-signoff {
+    right: 1.4rem;
+
+    bottom: 1.5rem;
+  }
+
+
+  .contact-postage {
+    padding:
+      4rem
+      0
+      1rem;
+  }
+
+
+  .contact-postmark {
+    right: 0;
+
+    width: 78px;
+    height: 78px;
+  }
+
+
+  .contact-link {
+    grid-template-columns:
+      2.8rem
+      minmax(0, 1fr)
+      auto;
+
+    gap: 0.8rem;
+
+    min-height: 68px;
+  }
+
+
+  .contact-stamp {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+
+  .contact-link-copy strong {
+    font-size: 0.92rem;
+  }
+
+
+  .contact-link-copy small {
+    font-size: 0.62rem;
+  }
+
 }
 
-/* Reduced motion */
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-icon-link,
-  .contact-icon-circle {
-    transition: none !important;
+
+  .contact-email-link,
+  .contact-link,
+  .contact-stamp,
+  .contact-link-arrow {
+    transition: none;
   }
+
 }

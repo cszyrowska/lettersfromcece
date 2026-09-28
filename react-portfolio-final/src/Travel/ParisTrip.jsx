@@ -1,72 +1,29 @@
 // src/Travel/ParisTrip.jsx
-import { Link } from 'react-router-dom'
-import '../styles/TravelPost.css'
-import placeholder from '../assets/travel_coming_soon.png'
-
-function LanternMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M12 2c2.8 0 5 2.2 5 5v2.1c0 .7.3 1.3.8 1.8l.5.5c.4.4.7 1 .7 1.6V17c0 2.2-1.8 4-4 4H9c-2.2 0-4-1.8-4-4v-2.9c0-.6.3-1.2.7-1.6l.5-.5c.5-.5.8-1.1.8-1.8V7c0-2.8 2.2-5 5-5Z"
-        fill="currentColor"
-        opacity="0.9"
-      />
-      <path
-        d="M9.2 7.2c.6-.8 1.5-1.2 2.8-1.2s2.2.4 2.8 1.2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        opacity="0.55"
-      />
-      <path
-        d="M12 10.2c.9 1 .9 1.7 0 2.7c-.9-1-.9-1.7 0-2.7Z"
-        fill="#ffffff"
-        opacity="0.35"
-      />
-    </svg>
-  )
-}
+import TravelLetter from './TravelLetter'
+import boat from '../assets/Paris/boat.jpg'
+import bridge from '../assets/Paris/bridge.png'
+import cat from '../assets/Paris/cat.jpg'
+import coffee from '../assets/Paris/coffee.jpg'
+import disney1 from '../assets/Paris/disney1.png'
+import disney2 from '../assets/Paris/disney2.png'
+import louisVuitton from '../assets/Paris/louis-vuitton.jpg'
+import macrons from '../assets/Paris/macrons.png'
+import poseWTower from '../assets/Paris/pose-w-tower.jpg'
+import posing from '../assets/Paris/posing.jpg'
+import selfWJoel from '../assets/Paris/self-w-joel.jpg'
+import selfieWTower from '../assets/Paris/selfie-w-tower.png'
+import view from '../assets/Paris/view.jpg'
+import garnier from '../assets/Paris/garnier.png'
+import street from '../assets/Paris/street.jpg'
 
 export default function ParisTrip() {
   return (
-    <main className="travel-post-page paris-trip-page">
-      <div className="travel-post-inner">
-        <div className="travel-topbar">
-          <Link to="/" className="travel-back">
-            ← Back to portfolio
-          </Link>
-
-          <div className="travel-meta">
-            <span className="travel-chip">Paris</span>
-            <span className="travel-chip">Romance + Friends</span>
-            <span className="travel-chip">Two trips</span>
-          </div>
-        </div>
-
-        <header className="travel-header">
-          <div className="travel-kicker">
-            <LanternMark />
-            Travel Journal
-          </div>
-
-          <h1 className="travel-title">Paris, Twice: Love, Friendship & Falling for the City</h1>
-
-          <p className="travel-subtitle">
-            A personal account of two visits — one romantic, one with my best friend.
-          </p>
-        </header>
-
-        <section className="travel-hero">
-          <div className="travel-hero-frame">
-            <img src={placeholder} alt="Paris hero" className="travel-hero-image" />
-          </div>
-        </section>
-
-        <section className="travel-body travel-body-full">
-          <article className="travel-article">
-            <div className="travel-rule" />
-
+    <TravelLetter
+      slug="paris"
+      intro="A personal account of two visits — one romantic, one with my best friend."
+      details={['Romance + Friends', 'Two trips']}
+      heroAlt="Eiffel Tower in Paris"
+    >
             <section className="travel-section">
               <p className="travel-intro">
                 As a child, I had always romanticised Paris, France. Who could blame me? In nearly every movie,
@@ -75,7 +32,7 @@ export default function ParisTrip() {
               </p>
 
               <div className="travel-image-float right">
-                <img src={placeholder} alt="Paris street" />
+                <img loading="lazy" decoding="async" src={garnier} alt="Selfie with Joel in Paris" />
               </div>
 
               <p className="travel-p">
@@ -89,13 +46,18 @@ export default function ParisTrip() {
                 around the area with coffee in hand. The busyness and rush of life there felt genuine and authentic,
                 as if people actually had places to go, things to do, and loved every minute of it.
               </p>
+
+              <div className="travel-image-block">
+                <img loading="lazy" decoding="async" src={coffee} alt="Coffee in Paris" className="travel-image" />
+              </div>
             </section>
 
             <section className="travel-section">
+              <p className="letter-section-label">01 /</p>
               <h2 className="travel-h2">Trip one — romantic three days</h2>
 
               <div className="travel-image-float">
-                <img src={placeholder} alt="Palais Garnier" />
+                <img loading="lazy" decoding="async" src={bridge} alt="Posing in Paris" />
               </div>
 
               <p className="travel-p">
@@ -111,7 +73,12 @@ export default function ParisTrip() {
               </p>
 
               <div className="travel-image-block">
-                <img src={placeholder} alt="Eiffel view" className="travel-image" />
+                <img loading="lazy" decoding="async" src={selfWJoel} alt="Macarons in Paris" className="travel-image" />
+              </div>
+
+              <div className="travel-image-pair">
+                <img loading="lazy" decoding="async" src={cat} alt="Eiffel view" className="travel-image" />
+                <img loading="lazy" decoding="async" src={poseWTower} alt="Posing with the Eiffel Tower" className="travel-image" />
               </div>
 
               <p className="travel-p">
@@ -133,13 +100,18 @@ export default function ParisTrip() {
                 The third and final day marked our sad goodbye. We went to Parc des Buttes-Chaumont for a picnic, and
                 after a quick stop at Montmartre we headed to the airport.
               </p>
+
+              <div className="travel-image-block">
+                <img loading="lazy" decoding="async" src={street} alt="Street in Paris" className="travel-image" />
+              </div>
             </section>
 
             <section className="travel-section">
+              <p className="letter-section-label">02 /</p>
               <h2 className="travel-h2">Trip two — five days with my best friend</h2>
 
               <div className="travel-image-float">
-                <img src={placeholder} alt="Shopping in Paris" />
+                <img loading="lazy" decoding="async" src={louisVuitton} alt="Louis Vuitton in Paris" />
               </div>
 
               <p className="travel-p">
@@ -153,8 +125,9 @@ export default function ParisTrip() {
                 favourite moments.
               </p>
 
-              <div className="travel-image-block">
-                <img src={placeholder} alt="Louvre" className="travel-image" />
+              <div className="travel-image-pair">
+                <img loading="lazy" decoding="async" src={disney1} alt="Disneyland Paris" className="travel-image" />
+                <img loading="lazy" decoding="async" src={disney2} alt="Another memory from Disneyland Paris" className="travel-image" />
               </div>
 
               <p className="travel-p">
@@ -168,24 +141,18 @@ export default function ParisTrip() {
               </p>
 
               <div className="travel-image-grid" aria-label="Paris photo grid">
-                <img src={placeholder} alt="Paris memory 1" className="travel-image" />
-                <img src={placeholder} alt="Paris memory 2" className="travel-image" />
-                <img src={placeholder} alt="Paris memory 3" className="travel-image" />
-                <img src={placeholder} alt="Paris memory 4" className="travel-image" />
-                <img src={placeholder} alt="Paris memory 5" className="travel-image" />
-                <img src={placeholder} alt="Paris memory 6" className="travel-image" />
+                <img loading="lazy" decoding="async" src={posing} alt="Cat in Paris" className="travel-image" />
+
+                <img loading="lazy" decoding="async" src={boat} alt="Boat in Paris" className="travel-image" />
+
+                <img loading="lazy" decoding="async" src={macrons} alt="Selfie with the Eiffel Tower" className="travel-image" />
+
               </div>
 
-              <p className="travel-p">
+              <blockquote className="letter-moment">
                 It's a city that lives up to every cliché—and somehow still exceeds expectations.
-              </p>
+              </blockquote>
             </section>
-          </article>
-        </section>
-
-        <footer className="travel-footer">Look out for more blog posts on my travels, coming soon!</footer>
-      </div>
-    </main>
+    </TravelLetter>
   )
 }
-

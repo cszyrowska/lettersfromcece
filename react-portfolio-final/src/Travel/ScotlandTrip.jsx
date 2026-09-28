@@ -1,7 +1,5 @@
 // src/Travel/ScotlandTrip.jsx
-import { Link } from 'react-router-dom'
-import '../styles/TravelPost.css'
-import travelPlaceholder from '../assets/profile.jpg'
+import TravelLetter from './TravelLetter'
 import carwindow from '../assets/Scotland/carwindow.jpg'
 import castle from '../assets/Scotland/Castleruins.jpg'
 import cows from '../assets/Scotland/cows.jpg'
@@ -10,7 +8,6 @@ import moors from '../assets/Scotland/moors.jpg'
 import sun from '../assets/Scotland/Scotsunset.jpg'
 import sky from '../assets/Scotland/sky.jpg'
 import snow from '../assets/Scotland/snowmountain.jpg'
-import train from '../assets/Scotland/train.jpg'
 import van from '../assets/Scotland/van.jpg'
 import cottage from '../assets/Scotland/cottage.jpg'
 import island from '../assets/Scotland/island.jpg'
@@ -20,88 +17,23 @@ import vanlife from '../assets/Scotland/vanlife.jpg'
 import berries from '../assets/Scotland/berries.jpg'
 import wall from '../assets/Scotland/wall.jpg'
 
-function LanternMark() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path
-        d="M12 2c2.8 0 5 2.2 5 5v2.1c0 .7.3 1.3.8 1.8l.5.5c.4.4.7 1 .7 1.6V17c0 2.2-1.8 4-4 4H9c-2.2 0-4-1.8-4-4v-2.9c0-.6.3-1.2.7-1.6l.5-.5c.5-.5.8-1.1.8-1.8V7c0-2.8 2.2-5 5-5Z"
-        fill="currentColor"
-        opacity="0.9"
-      />
-      <path
-        d="M9.2 7.2c.6-.8 1.5-1.2 2.8-1.2s2.2.4 2.8 1.2"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        opacity="0.55"
-      />
-      <path
-        d="M12 10.2c.9 1 .9 1.7 0 2.7c-.9-1-.9-1.7 0-2.7Z"
-        fill="#ffffff"
-        opacity="0.35"
-      />
-    </svg>
-  )
-}
-
 export default function ScotlandTrip() {
   return (
-    <main className="travel-post-page scotland-trip-page">
-      <div className="travel-post-inner">
-        {/* Top bar */}
-        <div className="travel-topbar">
-          <Link to="/" className="travel-back">
-            ← Back to portfolio
-          </Link>
-
-          <div className="travel-meta">
-            <span className="travel-chip">Scotland</span>
-            <span className="travel-chip">Cottage + Van life</span>
-            <span className="travel-chip">Two trips</span>
-          </div>
-        </div>
-
-        {/* Header */}
-        <header className="travel-header">
-          <div className="travel-kicker">
-            <LanternMark />
-            Travel Journal
-          </div>
-
-          <h1 className="travel-title">Cottages to Van Life: Two Ways of Loving Scotland</h1>
-
-          <p className="travel-subtitle">
-            A comparison of two ways I visited Scotland : Living slowly, and moving fast.
-          </p>
-        </header>
-
-        {/* Hero */}
-        <section className="travel-hero">
-          <div className="travel-hero-frame">
-            <img
-              src={train}
-              alt="Scotland landscape hero"
-              className="travel-hero-image"
-            />
-          </div>
-        </section>
-
-        {/* Body (FULL WIDTH) */}
-        <section className="travel-body travel-body-full">
-          <article className="travel-article">
-            <div className="travel-rule" />
-
-            {/* INTRO */}
+    <TravelLetter
+      slug="scotland"
+      intro="A comparison of two ways I visited Scotland : Living slowly, and moving fast."
+      details={['Cottage + Van life', 'Two trips']}
+      heroAlt="Scotland landscape hero"
+    >
             <section className="travel-section">
               <p className="travel-intro">
                 I have been to Scotland twice now, and they were both completely different experiences.
                 However, if you were to ask me which one I preferred or enjoyed more, I couldn’t tell you.
               </p>
 
-              {/* Float image RIGHT beside intro paragraphs */}
+              
               <div className="travel-image-float right">
-                <img src={moors} alt="Loch / calm landscape" />
+                <img loading="lazy" decoding="async" src={moors} alt="Loch / calm landscape" />
               </div>
 
               <p className="travel-p">
@@ -116,13 +48,14 @@ export default function ScotlandTrip() {
               </p>
             </section>
 
-            {/* TRIP ONE */}
+            
             <section className="travel-section">
+              <p className="letter-section-label">01 /</p>
               <h2 className="travel-h2">Trip one — cottage life</h2>
 
-              {/* Float image LEFT for this section */}
+              
               <div className="travel-image-float">
-                <img src={cottage} alt="Cottage life / view from the window" />
+                <img loading="lazy" decoding="async" src={cottage} alt="Cottage life / view from the window" />
               </div>
 
               <p className="travel-p">
@@ -141,9 +74,9 @@ export default function ScotlandTrip() {
                 is known for its castles, but they aren’t exaggerating when they say that these castles are everywhere.
               </p>
 
-              {/* Full-width image break (kept, but smaller via CSS max-height) */}
+              
               <div className="travel-image-block">
-                <img
+                <img loading="lazy" decoding="async"
                   src={castle}
                   alt="Castle ruins / history texture"
                   className="travel-image"
@@ -162,9 +95,9 @@ export default function ScotlandTrip() {
                 If you are looking for history, Scotland is the place to go.
               </p>
 
-              {/* Float image RIGHT near Nessie paragraph */}
+              
               <div className="travel-image-float right">
-                <img src={sun} alt="Loch Ness / moody water" />
+                <img loading="lazy" decoding="async" src={sun} alt="Loch Ness / moody water" />
               </div>
 
               <p className="travel-p">
@@ -184,9 +117,9 @@ export default function ScotlandTrip() {
                 and I must say Scotland is the place to do it.
               </p>
 
-              {/* Float image LEFT near sunrise / hill climb */}
+              
               <div className="travel-image-float">
-                <img src={selfie} alt="Sunrise hill / early morning climb" />
+                <img loading="lazy" decoding="async" src={selfie} alt="Sunrise hill / early morning climb" />
               </div>
 
               <p className="travel-p">
@@ -202,13 +135,17 @@ export default function ScotlandTrip() {
                 my head on my partner’s shoulder, it would all be worth it.
               </p>
 
-              <p className="travel-p">And I would do it over and over again if I could.</p>
+              <blockquote className="letter-moment">And I would do it over and over again if I could.</blockquote>
 
               <p className="travel-p">
                 I find a real beauty and joy in people-watching, so being so far away yet so close to these small clusters of houses —
                 with families waking up, starting their cars after a cold night, making coffee, or walking their dogs first thing —
                 was the most perfect start to my day.
               </p>
+
+              <div className="travel-image-block">
+                <img loading="lazy" decoding="async" src={morning} alt="Scotland memory 4" className="travel-image" />
+              </div>
 
               <p className="travel-p">
                 Scotland’s weather is nothing to joke about. We saw storms, sunshine, and even snow, but that only created more memories,
@@ -221,9 +158,9 @@ export default function ScotlandTrip() {
                 morning routine and playing house made me want to create that reality so badly.
               </p>
 
-              {/* Float image RIGHT near food / routine */}
+              
               <div className="travel-image-float right">
-                <img src={snow} alt="Village shop / cosy dinner moment" />
+                <img loading="lazy" decoding="async" src={snow} alt="Village shop / cosy dinner moment" />
               </div>
 
               <p className="travel-p">
@@ -243,13 +180,15 @@ export default function ScotlandTrip() {
               </p>
             </section>
 
-            {/* TRIP TWO */}
+            
             <section className="travel-section">
+              <p className="letter-section-label">02 /</p>
               <h2 className="travel-h2">Trip two — van life + family</h2>
 
-              {/* Float image LEFT at start of trip two */}
-              <div className="travel-image-float">
-                <img src={van} alt="Van life / on the road" />
+              
+              <div className="travel-image-pair">
+                <img loading="lazy" decoding="async" src={van} alt="Van life / on the road" />
+                <img loading="lazy" decoding="async" src={vanlife} alt="Scotland memory 3" className="travel-image" />
               </div>
 
               <p className="travel-p">
@@ -267,9 +206,9 @@ export default function ScotlandTrip() {
                 stepping outside to find yourself next to a completely new and stunning location sparked a different, unmatchable sense of adventure.
               </p>
 
-              {/* Float image RIGHT for “new place each night” vibe */}
+              
               <div className="travel-image-float right">
-                <img src={waterfall} alt="New morning view / campsite spot" />
+                <img loading="lazy" decoding="async" src={waterfall} alt="New morning view / campsite spot" />
               </div>
 
               <p className="travel-p">
@@ -292,9 +231,9 @@ export default function ScotlandTrip() {
                 The landscape was vast and rugged, the mountains intimidating, and the beaches filled with fossils.
               </p>
 
-              {/* Full-width break for Skye */}
+              
               <div className="travel-image-block">
-                <img
+                <img loading="lazy" decoding="async"
                   src={sky}
                   alt="Isle of Skye / rugged landscape"
                   className="travel-image"
@@ -311,9 +250,9 @@ export default function ScotlandTrip() {
                 weather is less fierce, but I would never trade those memories.
               </p>
 
-              {/* Float image LEFT for Hogwarts train moment */}
+              
               <div className="travel-image-float">
-                <img src={island} alt="Jacobite steam train / Hogwarts vibes" />
+                <img loading="lazy" decoding="async" src={island} alt="Jacobite steam train / Hogwarts vibes" />
               </div>
 
               <p className="travel-p">
@@ -341,16 +280,18 @@ export default function ScotlandTrip() {
                 like eating dinner together on camping chairs while trying not to get eaten alive by midges.
               </p>
 
+              <div className="travel-image-block">
+                <img loading="lazy" decoding="async" src={berries} alt="Scotland memory 5" className="travel-image" />
+              </div>
+
               <p className="travel-p">These memories stay warm, true, and authentic every time I look back.</p>
 
-              {/* Photo grid stays (nice ending) */}
+              
               <div className="travel-image-grid" aria-label="Scotland photo grid">
-                <img src={cows} alt="Scotland memory 1" className="travel-image" />
-                <img src={carwindow} alt="Scotland memory 2" className="travel-image" />
-                <img src={vanlife} alt="Scotland memory 3" className="travel-image" />
-                <img src={morning} alt="Scotland memory 4" className="travel-image" />
-                <img src={berries} alt="Scotland memory 5" className="travel-image" />
-                <img src={wall} alt="Scotland memory 6" className="travel-image" />
+                <img loading="lazy" decoding="async" src={cows} alt="Scotland memory 1" className="travel-image" />
+                <img loading="lazy" decoding="async" src={carwindow} alt="Scotland memory 2" className="travel-image" />
+
+                <img loading="lazy" decoding="async" src={wall} alt="Scotland memory 6" className="travel-image" />
               </div>
 
               <p className="travel-p">
@@ -373,13 +314,6 @@ export default function ScotlandTrip() {
                 And besides, when does trying to find a big, mysterious monster ever get boring?
               </p>
             </section>
-          </article>
-        </section>
-
-        <footer className="travel-footer">
-          Look out for more blog posts on my travels, coming soon!
-        </footer>
-      </div>
-    </main>
+    </TravelLetter>
   )
 }

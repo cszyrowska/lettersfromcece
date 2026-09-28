@@ -1,8 +1,9 @@
 // src/App.jsx
 import { useState } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Intro from './components/Intro.jsx'
 import Home from './components/Home.jsx'
+import NewsletterLetter from './components/NewsletterLetter.jsx'
 
 // Travel pages in src/Travel
 import ParisTrip from './Travel/ParisTrip.jsx'
@@ -15,23 +16,26 @@ import ScotlandTrip from './Travel/ScotlandTrip.jsx'
 
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(true)
+  const { pathname } = useLocation()
+  const [showIntro, setShowIntro] = useState(() => pathname === '/')
 
-  if (showIntro) {
+  if (showIntro && pathname === '/') {
     return <Intro onFinish={() => setShowIntro(false)} />
   }
 
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-      {/* Travel blog pages */}
-      <Route path="/travel/kenya" element={<KenyaTrip />} />
-      <Route path="/travel/paris" element={<ParisTrip />} />
-      <Route path="/travel/asia" element={<AsiaTrip />} />
-    <Route path="/travel/iceland" element={<IcelandTrip />} />
- <Route path="/travel/scotland" element={<ScotlandTrip />} />
- 
-    </Routes>
+        {/* Travel blog pages */}
+        <Route path="/travel/kenya" element={<KenyaTrip />} />
+        <Route path="/travel/paris" element={<ParisTrip />} />
+        <Route path="/travel/asia" element={<AsiaTrip />} />
+        <Route path="/travel/iceland" element={<IcelandTrip />} />
+        <Route path="/travel/scotland" element={<ScotlandTrip />} />
+      </Routes>
+      <NewsletterLetter />
+    </>
   )
 }

@@ -2,6 +2,9 @@ import { useState } from 'react'
 import '../styles/About.css'
 import idle1 from '../assets/idle1.png'
 import idle2 from '../assets/idle2.png'
+import gilmoreGirlsGif from '../assets/gilmoregirls.gif'
+import SocialFlipPhone from './SocialFlipPhone.jsx'
+import DreamJar from './DreamJar.jsx'
 
 const characterStates = [
   {
@@ -11,6 +14,26 @@ const characterStates = [
   {
     image: idle2,
     speech: 'but everyone calls me Cece ♡',
+  },
+  {
+    image: idle1,
+    speech: 'I collect little moments everywhere I go',
+  },
+  {
+    image: idle2,
+    speech: 'my camera roll is mostly skies and train windows',
+  },
+  {
+    image: idle1,
+    speech: 'I am happiest with a good book and a new place',
+  },
+  {
+    image: idle2,
+    speech: 'currently dreaming about my next adventure',
+  },
+  {
+    image: idle1,
+    speech: 'thanks for stopping by my little corner of the world',
   },
 ]
 
@@ -49,6 +72,16 @@ export default function AboutSection() {
           />
         </button>
       </div>
+
+      <figure className="comfort-show">
+        <div className="comfort-show-screen">
+          <img src={gilmoreGirlsGif} alt="Gilmore Girls scene" />
+        </div>
+        <figcaption>comfort show ♡</figcaption>
+      </figure>
+
+      <SocialFlipPhone />
+      <DreamJar />
     </section>
   )
 }

@@ -1,0 +1,462 @@
+/* =========================================================
+   CECE'S CHARM BRACELET / FAVOURITE THINGS
+   ========================================================= */
+
+.charm-bracelet-scene {
+  position: relative;
+
+  /*
+   * Slightly wider than before so the bracelet has space
+   * to extend outside the normal side-column width.
+   */
+  width: 320px;
+  max-width: none;
+
+  margin: 3rem auto 0;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   COLLAGE AREA
+   ========================================================= */
+
+.charm-collage {
+  position: relative;
+
+  /*
+   * Gives Cece + bracelet enough vertical room.
+   * Increasing this does NOT resize the artwork.
+   */
+  min-height: 430px;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   SEATED CECE
+   ========================================================= */
+
+.charm-character-container {
+  position: absolute;
+
+  /*
+   * Cece sits toward the RIGHT of the little composition.
+   * This leaves space for the bracelet on the upper-left.
+   */
+  right: -7%;
+  bottom: 0;
+
+  z-index: 1;
+
+  /*
+   * Make seated Cece more prominent.
+   */
+  width: 82%;
+
+  aspect-ratio: 1142 / 1378;
+
+  filter: drop-shadow(
+    0 12px 14px rgba(0, 0, 0, 0.22)
+  );
+}
+
+
+.charm-character-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center bottom;
+
+  opacity: 0.92;
+
+  transform: scale(0.995);
+
+  transition:
+    opacity 190ms ease,
+    transform 190ms ease;
+}
+
+
+/*
+ * When hovering/selecting a charm and Cece starts talking.
+ */
+.charm-character-image.is-talking {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* =========================================================
+   BRACELET
+   ========================================================= */
+
+.bracelet-interactive {
+  position: absolute;
+
+  /*
+   * IMPORTANT:
+   * Bracelet now sits ABOVE + LEFT of Cece instead of
+   * directly across her face.
+   */
+  top: -1.5rem;
+  left: -20%;
+
+  z-index: 2;
+
+  /*
+   * Large enough to be obviously interactive.
+   */
+  width: 105%;
+
+  overflow: visible;
+
+  line-height: 0;
+
+  transform: rotate(-20deg);
+  transform-origin: center center;
+}
+
+
+.bracelet-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+
+  /*
+   * Keeps it looking like a floating physical object.
+   */
+  filter: drop-shadow(
+    0 8px 9px rgba(0, 0, 0, 0.22)
+  );
+
+  transition:
+    filter 180ms ease,
+    transform 180ms ease;
+}
+
+
+/*
+ * Very subtle response when one of the charms is hovered.
+ */
+.bracelet-interactive:has(.charm-hotspot:hover)
+.bracelet-image,
+.bracelet-interactive:has(.charm-hotspot:focus-visible)
+.bracelet-image {
+  filter: drop-shadow(
+    0 10px 12px rgba(225, 174, 83, 0.3)
+  );
+}
+
+
+/* =========================================================
+   INVISIBLE CHARM HOTSPOTS
+   ========================================================= */
+
+.charm-hotspot {
+  position: absolute;
+
+  z-index: 3;
+
+  display: block;
+
+  /*
+   * Gives even smaller charms a usable hover/tap area.
+   */
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  touch-action: manipulation;
+}
+
+
+/*
+ * Keyboard accessibility.
+ *
+ * This is intentionally subtle so it doesn't ruin
+ * the bracelet artwork.
+ */
+.charm-hotspot:focus-visible {
+  outline: 1px dashed rgba(246, 234, 215, 0.9);
+  outline-offset: 0.12rem;
+}
+
+
+/*
+ * OPTIONAL DEBUG MODE
+ *
+ * If you need to check where your invisible hotspots are,
+ * temporarily uncomment this:
+ */
+
+/*
+.charm-hotspot {
+  background: rgba(255, 0, 0, 0.18);
+  outline: 1px solid red;
+}
+*/
+
+
+/* =========================================================
+   LITTLE LETTER UNDER CECE
+   ========================================================= */
+
+.charm-letter {
+  position: relative;
+
+  z-index: 4;
+
+  /*
+   * Wider than before and centred underneath the artwork.
+   */
+  width: 88%;
+
+  min-height: 7.5rem;
+
+  /*
+   * Small overlap makes it feel like part of the collage
+   * instead of a completely separate box.
+   */
+  margin: -0.25rem auto 0;
+
+  padding:
+    1.1rem
+    0.95rem
+    0.9rem;
+
+  border:
+    1px solid rgba(94, 71, 62, 0.2);
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(101, 79, 68, 0.035),
+      rgba(101, 79, 68, 0.035) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    #f6ead7;
+
+  box-shadow:
+    4px 7px 10px rgba(0, 0, 0, 0.18);
+
+  color: #503a34;
+
+  /*
+   * Scrapbook imperfection.
+   */
+  transform: rotate(1.5deg);
+}
+
+
+/* Inner dotted / stitched edge */
+.charm-letter::before {
+  content: '';
+
+  position: absolute;
+
+  inset: 0.3rem;
+
+  border:
+    1px dashed rgba(112, 82, 71, 0.23);
+
+  pointer-events: none;
+}
+
+
+/* Tiny heart/stamp decoration */
+.charm-letter-stamp {
+  position: absolute;
+
+  top: 0.55rem;
+  right: 0.65rem;
+
+  color: #ad6158;
+
+  font-size: 0.95rem;
+}
+
+
+/* Small category heading */
+.charm-letter-title {
+  display: block;
+
+  margin-bottom: 0.8rem;
+
+  padding-right: 1.5rem;
+
+  color: #85584e;
+
+  font-size: 0.57rem;
+
+  letter-spacing: 0.13em;
+
+  text-transform: uppercase;
+}
+
+
+.charm-letter p,
+.charm-letter small {
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+}
+
+
+/* Main charm message */
+.charm-letter p {
+  min-height: 2.25rem;
+
+  margin: 0;
+
+  font-size: 0.75rem;
+  line-height: 1.45;
+
+  animation:
+    charm-letter-message-in
+    180ms
+    ease
+    both;
+}
+
+
+/* Secondary helper line */
+.charm-letter small {
+  display: block;
+
+  margin-top: 0.6rem;
+
+  font-size: 0.59rem;
+  line-height: 1.4;
+
+  opacity: 0.82;
+}
+
+
+/* =========================================================
+   LETTER TEXT CHANGE
+   ========================================================= */
+
+@keyframes charm-letter-message-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .charm-bracelet-scene {
+    width: 300px;
+    max-width: none;
+
+    margin-top: 2.5rem;
+  }
+
+
+  .charm-collage {
+    min-height: 410px;
+  }
+
+
+  .charm-character-container {
+    right: -5%;
+    bottom: 0;
+
+    width: 80%;
+  }
+
+
+  .bracelet-interactive {
+    top: 0.5rem;
+    left: -35%;
+
+    width: 120%;
+  }
+
+
+  .charm-letter {
+    width: 86%;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+  .charm-bracelet-scene {
+    /*
+     * Responsive while still letting the collage breathe.
+     */
+    width: min(92vw, 320px);
+
+    margin-top: 2.5rem;
+  }
+
+
+  .charm-collage {
+    min-height: 400px;
+  }
+
+
+  .charm-character-container {
+    /*
+     * Slightly more centred on mobile.
+     */
+    right: -1%;
+
+    width: 78%;
+  }
+
+
+  .bracelet-interactive {
+    /*
+     * Bracelet stays offset instead of covering Cece's face.
+     */
+    top: 0.75rem;
+    left: -25%;
+
+    width: 112%;
+  }
+
+
+  .charm-letter {
+    width: 88%;
+
+    margin-top: 0;
+  }
+
+
+  .charm-letter p {
+    font-size: 0.72rem;
+  }
+}

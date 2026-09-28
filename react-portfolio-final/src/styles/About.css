@@ -1,25 +1,40 @@
 .about-section {
   min-width: 0;
   margin: 0;
-  padding: 4.5rem 0 0;
+  padding: 8rem 0 0;
 }
 
 .cece-scene {
   position: relative;
-  min-height: 350px;
+  min-height: 430px;
+  height: 430px;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  overflow: visible;
 }
 
 .cece-character {
-  position: relative;
-  width: min(100%, 220px);
-  height: 340px;
+  position: absolute;
+
+  /* Keeps her centred in the left column */
+  left: 50%;
+
+  /* Moves her UP without affecting anything else */
+  bottom: 25px;
+
+  /* Makes her bigger */
+  width: 320px;
+  height: 480px;
+
   padding: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
+
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+
   filter: drop-shadow(0 15px 14px rgba(0, 0, 0, 0.24));
   transition: filter 0.25s ease, transform 0.25s ease;
   z-index: 2;
@@ -28,7 +43,7 @@
 .cece-character:hover,
 .cece-character:focus-visible {
   filter: drop-shadow(0 17px 18px rgba(222, 174, 133, 0.2));
-  transform: scale(1.015);
+  transform: translateX(-50%) scale(1.015);
   outline: none;
 }
 
@@ -49,59 +64,141 @@
   animation: cece-expression-change 280ms ease both;
 }
 
+.comfort-show {
+  position: relative;
+
+  /* Can now be wider than the left column */
+  width: 300px;
+  max-width: none;
+
+  /* Centre it underneath Cece */
+  left: 50%;
+  margin: 2rem 0 0;
+
+  transform: translateX(-50%) rotate(1.5deg);
+  transition: transform 180ms ease;
+}
+.comfort-show::before {
+  content: '';
+  position: absolute;
+  top: -0.55rem;
+  left: 50%;
+  z-index: 1;
+  width: 3.8rem;
+  height: 1.1rem;
+  background: rgba(222, 190, 145, 0.72);
+  box-shadow: 0 1px 2px rgba(70, 42, 32, 0.12);
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+.comfort-show:hover {
+  transform:
+    translateX(-50%)
+    rotate(1.5deg)
+    translateY(-2px)
+    scale(1.01);
+}
+
+.comfort-show-screen {
+  position: relative;
+  padding: 0.38rem;
+  border: 2px solid #4f3931;
+  border-radius: 0.45rem 0.35rem 0.5rem 0.3rem;
+  background: #342722;
+  box-shadow: 4px 6px 0 rgba(62, 38, 34, 0.2), 0 9px 14px rgba(0, 0, 0, 0.12);
+}
+
+.comfort-show-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0.38rem;
+  border: 1px solid rgba(246, 234, 215, 0.24);
+  border-radius: 0.15rem;
+  pointer-events: none;
+}
+
+.comfort-show-screen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.12rem;
+}
+
+.comfort-show figcaption {
+  margin-top: 0.45rem;
+  color: #76534b;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.72rem;
+  text-align: center;
+}
+
 .cece-speech {
   position: absolute;
-  top: 0.4rem;
-  left: 50%;
+
+  /* Above Cece's head */
+  top: -7.5rem;
+  left: 55%;
+
   z-index: 3;
-  width: 11.5rem;
-  padding: 0.75rem 0.8rem;
+  width: 10.5rem;
+  padding: 0.7rem 0.8rem;
+
   border: 2px solid #705247;
   border-radius: 47% 53% 49% 51% / 46% 48% 52% 54%;
+
   background:
-    repeating-linear-gradient(0deg, rgba(117, 83, 64, 0.035), rgba(117, 83, 64, 0.035) 1px, transparent 1px, transparent 4px),
+    repeating-linear-gradient(
+      0deg,
+      rgba(117, 83, 64, 0.035),
+      rgba(117, 83, 64, 0.035) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
     #f6ead7;
+
   box-shadow: 4px 6px 0 rgba(62, 38, 34, 0.18);
+
   color: #503a34;
   font-family: 'Segoe Print', 'Bradley Hand', cursive;
   font-size: 0.82rem;
   line-height: 1.35;
   text-align: center;
-  transform: translateX(-35%) rotate(-4deg);
-  transition: opacity 220ms ease, transform 220ms ease;
+
+  /* Keeps it near Cece instead of over the books */
+  transform: translateX(-20%) rotate(-4deg);
+
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
 }
 
+/* Speech bubble tail */
 .cece-speech::after {
   content: '';
   position: absolute;
-  right: 0.7rem;
-  bottom: -0.5rem;
+
+  /* Tail now points down toward Cece */
+  left: 2.3rem;
+  bottom: -0.45rem;
+
   width: 0.85rem;
   height: 0.85rem;
+
   border-right: 2px solid #705247;
   border-bottom: 2px solid #705247;
-  background: #f6ead7;
-  transform: rotate(35deg) skew(12deg, 12deg);
-}
 
-.cece-speech i {
-  position: absolute;
-  top: 0.35rem;
-  right: 0.75rem;
-  width: 0.25rem;
-  height: 0.25rem;
-  border-radius: 50%;
-  background: #bf7d70;
-  box-shadow: -0.45rem 0.35rem 0 #d9ae8d;
+  background: #f6ead7;
+
+  transform: rotate(45deg);
 }
 
 .cece-speech.is-instruction {
   color: #865b50;
-  transform: translateX(-35%) rotate(-4deg) translateY(0.15rem);
+  transform: translateX(-20%) rotate(-4deg);
 }
 
 .cece-speech.is-visible {
-  transform: translateX(-35%) rotate(-2deg);
+  transform: translateX(-20%) rotate(-2deg);
 }
 
 .about-letter {
@@ -190,28 +287,33 @@
   }
 
   .cece-scene {
-    min-height: 330px;
+    min-height: 350px;
   }
 
   .cece-character {
-    width: 180px;
-    height: 290px;
+    width: 230px;
+    height: 350px;
   }
 
   .cece-speech {
-    top: 0;
-    left: 50%;
+    top: 2.25rem;
+    left: calc(50% + 5rem);
     width: 10.5rem;
-    transform: translateX(-50%) rotate(-3deg);
+    transform: translateX(0) rotate(-3deg);
   }
 
   .cece-speech.is-instruction,
   .cece-speech.is-visible {
-    transform: translateX(-50%) rotate(-3deg);
+    transform: translateX(0) rotate(-3deg);
   }
 
   .about-letter {
     width: min(100%, 280px);
     margin: 0 auto;
+  }
+
+  .comfort-show {
+    width: min(100%, 220px);
+    margin-top: 0.25rem;
   }
 }

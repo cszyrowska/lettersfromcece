@@ -1,0 +1,329 @@
+.middle-letters {
+  width: 100%;
+  margin: 0;
+}
+
+.category-bookmarks {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.45rem;
+  padding-left: 1.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.category-bookmark {
+  position: relative;
+  min-width: 6.8rem;
+  padding: 0.7rem 1rem 0.62rem;
+  border: 1px solid rgba(49, 32, 31, 0.26);
+  border-bottom: 0;
+  border-radius: 0.65rem 0.65rem 0 0;
+  color: #3d2b2b;
+  cursor: pointer;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.76rem;
+  font-style: italic;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.35);
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-bookmark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25rem;
+  height: 0.3rem;
+  background: inherit;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 6% 100%);
+}
+
+.category-bookmark:hover,
+.category-bookmark:focus-visible {
+  filter: brightness(1.08);
+}
+
+.category-bookmark.is-active {
+  transform: translateY(-0.35rem);
+  color: #2f2021;
+  box-shadow: 0 -0.25rem 0.8rem rgba(26, 15, 17, 0.22), inset 0 1px rgba(255, 255, 255, 0.45);
+}
+
+.category-bookmark-travel {
+  background: #bd8987;
+}
+
+.category-bookmark-projects {
+  background: #a9b6a0;
+}
+
+.middle-letters-heading {
+  margin: 0;
+  padding: 0.75rem 0.7rem 0.4rem;
+}
+
+.middle-letters-note {
+  margin: 0;
+  color: #d8b99c;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.82rem;
+  transform: rotate(-1.5deg);
+  animation: letter-note-in 0.35s ease both;
+}
+
+.letter-feed {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  padding: 0.65rem 0.35rem 1.5rem;
+  animation: letter-feed-in 0.35s ease both;
+}
+
+.letter-cover {
+  --letter-ink: #433231;
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 18rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  overflow: hidden;
+  border: 1px solid rgba(76, 54, 49, 0.2);
+  border-radius: 0.16rem;
+  background:
+    repeating-linear-gradient(0deg, rgba(100, 77, 64, 0.025), rgba(100, 77, 64, 0.025) 1px, transparent 1px, transparent 5px),
+    #f3e9d8;
+  color: var(--letter-ink);
+  text-decoration: none;
+  box-shadow: 0 0.45rem 0 rgba(43, 26, 25, 0.12), 0 1.1rem 1.7rem rgba(18, 10, 13, 0.2);
+  transform: rotate(-0.6deg);
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.letter-cover:nth-child(2) {
+  transform: rotate(0.7deg);
+}
+
+.letter-cover:nth-child(3) {
+  transform: rotate(-0.35deg);
+}
+
+.letter-cover:hover,
+.letter-cover:focus-visible {
+  transform: translateY(-0.3rem) rotate(0deg);
+  box-shadow: 0 0.5rem 0 rgba(43, 26, 25, 0.13), 0 1.5rem 2rem rgba(18, 10, 13, 0.28);
+}
+
+.letter-cover-projects {
+  background:
+    linear-gradient(90deg, transparent 0 12%, rgba(110, 133, 119, 0.1) 12% 12.4%, transparent 12.4% 100%),
+    repeating-linear-gradient(0deg, rgba(100, 77, 64, 0.025), rgba(100, 77, 64, 0.025) 1px, transparent 1px, transparent 5px),
+    #eee6d4;
+}
+
+.letter-cover-paperclip {
+  position: absolute;
+  top: -0.35rem;
+  right: 1.4rem;
+  width: 1.15rem;
+  height: 4rem;
+  border: 2px solid #8d9290;
+  border-bottom: 0;
+  border-radius: 1rem 1rem 0 0;
+  transform: rotate(8deg);
+  opacity: 0.75;
+}
+
+.letter-cover-corner {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 2.2rem;
+  height: 2.2rem;
+  background: linear-gradient(135deg, rgba(143, 104, 81, 0.16), transparent 68%);
+}
+
+.letter-cover-topline,
+.letter-cover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: #80665a;
+  font-size: 0.62rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.letter-cover-topline time {
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.letter-cover-photo-wrap {
+  float: right;
+  width: min(35%, 8.5rem);
+  margin: 1rem 0 0 1.2rem;
+  padding: 0.38rem 0.38rem 0.7rem;
+  background: #fffaf0;
+  box-shadow: 0 0.25rem 0.55rem rgba(43, 26, 25, 0.16);
+  transform: rotate(3deg);
+}
+
+.letter-cover:nth-child(2) .letter-cover-photo-wrap {
+  transform: rotate(-3deg);
+}
+
+.letter-cover-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 0.82;
+  object-fit: cover;
+  filter: saturate(0.78) sepia(0.12);
+}
+
+.letter-cover-tape {
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  width: 3.5rem;
+  height: 1rem;
+  background: rgba(204, 177, 130, 0.62);
+  transform: translateX(-50%) rotate(-4deg);
+}
+
+.letter-cover-copy {
+  padding: 2.2rem 0 2rem;
+}
+
+.letter-cover-kicker,
+.letter-cover-excerpt {
+  margin: 0;
+}
+
+.letter-cover-kicker {
+  color: #9b645e;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.85rem;
+}
+
+.letter-cover-projects .letter-cover-kicker {
+  color: #617c6d;
+}
+
+.letter-cover h3 {
+  max-width: 26rem;
+  margin: 0.45rem 0 0.8rem;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.12;
+}
+
+.letter-cover-excerpt {
+  max-width: 34rem;
+  color: rgba(67, 50, 49, 0.8);
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.letter-cover-footer {
+  border-top: 1px solid rgba(109, 78, 68, 0.18);
+  padding-top: 0.85rem;
+}
+
+.letter-cover-note {
+  max-width: 55%;
+  font-family: 'Segoe Print', 'Bradley Hand', cursive;
+  font-size: 0.7rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.letter-cover-cta {
+  color: #8f5751;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.86rem;
+  font-style: italic;
+  letter-spacing: 0;
+  text-transform: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.letter-cover-projects .letter-cover-cta {
+  color: #547263;
+}
+
+.letter-cover:hover .letter-cover-cta,
+.letter-cover:focus-visible .letter-cover-cta {
+  color: #3f2b2b;
+  transform: translateX(0.2rem);
+}
+
+@keyframes letter-feed-in {
+  from { opacity: 0; transform: translateY(0.35rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes letter-note-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .middle-letters {
+    margin: 3rem auto 4rem;
+  }
+
+  .category-bookmarks {
+    padding-left: 0.55rem;
+  }
+
+  .category-bookmark {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .letter-feed {
+    gap: 2.7rem;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .letter-cover {
+    min-height: 17rem;
+    padding: 1.1rem;
+  }
+
+  .letter-cover-photo-wrap {
+    width: 36%;
+  }
+
+  .letter-cover-copy {
+    padding-top: 2rem;
+  }
+
+  .letter-cover-footer {
+    align-items: flex-end;
+  }
+
+  .letter-cover-note {
+    max-width: 48%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .middle-letters-note,
+  .letter-feed {
+    animation: none;
+  }
+
+  .category-bookmark,
+  .letter-cover,
+  .letter-cover-cta {
+    transition: none;
+  }
+}

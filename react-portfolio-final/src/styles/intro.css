@@ -1,345 +1,1258 @@
 /* src/styles/intro.css */
 
+
+/* =========================================================
+   ROOT
+   ========================================================= */
+
 .intro-root {
   position: relative;
+
   min-height: 100vh;
-  background: radial-gradient(circle at top, #1b2740 0, #05040a 60%);
+
+  overflow: hidden;
+
   color: #f3e9d9;
+
+  background:
+    radial-gradient(
+      circle at 50% -5%,
+      #223454 0%,
+      #11172a 34%,
+      #080811 68%,
+      #05040a 100%
+    );
+}
+
+
+.intro-root-exiting {
   overflow: hidden;
 }
 
-/* ===========================
-   Sky / lanterns
-=========================== */
+
+/* =========================================================
+   SKY
+   ========================================================= */
 
 .intro-sky {
   position: absolute;
+
   inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+
   z-index: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+
+  transition:
+    opacity 600ms ease,
+    filter 700ms ease;
 }
 
-/* Subtle wind sweep behind lanterns */
+
+/* =========================================================
+   SOFT NIGHT HAZE
+   ========================================================= */
+
 .intro-sky::before {
   content: '';
+
   position: absolute;
-  top: 18%;
-  left: -60vw;
-  width: 160vw;
-  height: 40vh;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 248, 220, 0.06) 20%,
-    rgba(255, 248, 220, 0.16) 40%,
-    rgba(255, 248, 220, 0.2) 52%,
-    rgba(255, 248, 220, 0.14) 70%,
-    rgba(255, 248, 220, 0.04) 90%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  opacity: 0;
+
+  top: 8%;
+  left: -35%;
+
+  width: 170%;
+  height: 65%;
+
   pointer-events: none;
-  animation: introWindSweep 9s ease-in-out infinite;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 228, 172, 0.09),
+      rgba(255, 220, 160, 0.025) 40%,
+      transparent 70%
+    );
+
+  opacity: 0.55;
+
+  animation:
+    introNightDrift
+    12s
+    ease-in-out
+    infinite
+    alternate;
 }
 
-/* Lantern columns hold string + body.
-   Only the body wrapper is animated, so the string stays attached to the top. */
+
+@keyframes introNightDrift {
+  from {
+    transform:
+      translate3d(-2%, -1%, 0);
+  }
+
+  to {
+    transform:
+      translate3d(3%, 2%, 0);
+  }
+}
+
+
+/* =========================================================
+   LANTERN COLUMNS
+   ========================================================= */
 
 .lantern-column {
+  --lantern-drop-delay: 0ms;
+  --lantern-drop-distance:
+    calc(-36vh - 6rem);
+
   position: absolute;
+
   top: 0;
   bottom: 0;
+
   width: 0;
+
+  animation:
+    lanternDrop
+    1.15s
+    cubic-bezier(0.2, 0.75, 0.25, 1)
+    var(--lantern-drop-delay)
+    both;
 }
+
 
 .lantern-column-1 {
   left: 20%;
 }
 
+
 .lantern-column-2 {
   left: 50%;
+
+  --lantern-drop-delay: 120ms;
 }
+
 
 .lantern-column-3 {
   left: 78%;
+
+  --lantern-drop-delay: 240ms;
 }
+
+
+/* =========================================================
+   STRINGS
+   ========================================================= */
 
 .lantern-string {
   position: absolute;
+
   top: 0;
   left: 0;
-  transform: translateX(-50%);
+
   width: 1px;
   height: 54vh;
-  background: linear-gradient(
-    to bottom,
-    rgba(237, 225, 210, 0.6),
-    rgba(237, 225, 210, 0)
-  );
+
+  transform:
+    translateX(-50%);
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(237, 225, 210, 0.52),
+      rgba(237, 225, 210, 0.18) 65%,
+      transparent
+    );
 }
 
-/* The lantern body wrapper moves, but the string does not. */
+
+/* =========================================================
+   LANTERN WRAPPER
+   ========================================================= */
 
 .lantern-body-wrapper {
   position: absolute;
+
   top: 34vh;
   left: 0;
-  transform: translateX(-50%);
-  animation: lanternFloat 4.3s ease-in-out infinite alternate;
+
+  transform:
+    translateX(-50%);
+
+  animation:
+    lanternFloat
+    5.2s
+    ease-in-out
+    calc(
+      1.15s +
+      var(--lantern-drop-delay)
+    )
+    infinite
+    alternate;
 }
 
-.lantern-column-2 .lantern-body-wrapper {
+
+.lantern-column-2
+.lantern-body-wrapper {
   top: 36vh;
-  animation-duration: 4.9s;
+
+  animation-duration: 5.8s;
 }
 
-.lantern-column-3 .lantern-body-wrapper {
+
+.lantern-column-3
+.lantern-body-wrapper {
   top: 32vh;
-  animation-duration: 5.4s;
+
+  animation-duration: 6.3s;
 }
+
+
+/* =========================================================
+   DROP
+   ========================================================= */
+
+@keyframes lanternDrop {
+  0% {
+    transform:
+      translateY(
+        var(--lantern-drop-distance)
+      );
+  }
+
+  82% {
+    transform:
+      translateY(4px);
+  }
+
+  100% {
+    transform:
+      translateY(0);
+  }
+}
+
+
+/* =========================================================
+   LANTERN
+   ========================================================= */
 
 .lantern-body {
+  position: relative;
+
   width: 3.2rem;
   height: 4.3rem;
+
   border-radius: 999px;
-  background: radial-gradient(
-    circle at 50% 0%,
-    #fff7d5 0,
-    #f0c27b 40%,
-    #d57a1f 85%
-  );
+
+  background:
+    radial-gradient(
+      circle at 50% 4%,
+      #fffce4 0%,
+      #f9d899 24%,
+      #edae55 58%,
+      #cf741f 100%
+    );
+
   box-shadow:
-    0 0 22px rgba(252, 222, 148, 0.9),
-    0 16px 26px rgba(0, 0, 0, 0.85);
-  position: relative;
+    0 0 18px
+      rgba(255, 221, 150, 0.7),
+    0 0 42px
+      rgba(240, 170, 79, 0.22),
+    0 16px 26px
+      rgba(0, 0, 0, 0.7);
+
+  transition:
+    filter 400ms ease,
+    box-shadow 400ms ease;
 }
+
 
 .lantern-body::before {
   content: '';
+
   position: absolute;
+
   inset: 0.25rem;
+
+  border:
+    2px solid
+    rgba(86, 45, 10, 0.42);
+
   border-radius: inherit;
-  border: 2px solid rgba(86, 45, 10, 0.45);
 }
+
 
 .lantern-body::after {
   content: '';
+
   position: absolute;
+
   top: -0.55rem;
   left: 50%;
+
   width: 0.65rem;
   height: 0.65rem;
-  transform: translateX(-50%);
+
+  transform:
+    translateX(-50%);
+
   border-radius: 0.4rem;
-  background: linear-gradient(
-    to bottom,
-    rgba(55, 36, 20, 1),
-    rgba(15, 9, 6, 1)
-  );
+
+  background:
+    linear-gradient(
+      to bottom,
+      #4b321e,
+      #120b07
+    );
+
   box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.65),
-    0 4px 6px rgba(0, 0, 0, 0.7);
+    0 0 0 1px
+      rgba(0, 0, 0, 0.65),
+    0 4px 6px
+      rgba(0, 0, 0, 0.6);
 }
+
+
+/* =========================================================
+   FLOAT
+   ========================================================= */
 
 @keyframes lanternFloat {
   0% {
-    transform: translate(-50%, -8px);
+    transform:
+      translate(
+        -50%,
+        -5px
+      )
+      rotate(-0.7deg);
   }
+
   100% {
-    transform: translate(-50%, 10px);
+    transform:
+      translate(
+        -50%,
+        7px
+      )
+      rotate(0.7deg);
   }
 }
 
-/* ===========================
-   Fireflies – fun extra
-=========================== */
+
+/* =========================================================
+   EXIT — LANTERN GLOW
+   ========================================================= */
+
+.intro-root-exiting
+.lantern-body {
+  animation:
+    lanternExitGlow
+    900ms
+    cubic-bezier(
+      0.2,
+      0.65,
+      0.25,
+      1
+    )
+    forwards;
+}
+
+
+@keyframes lanternExitGlow {
+  0% {
+    filter:
+      brightness(1);
+
+    box-shadow:
+      0 0 18px
+        rgba(255, 221, 150, 0.7),
+      0 0 42px
+        rgba(240, 170, 79, 0.22),
+      0 16px 26px
+        rgba(0, 0, 0, 0.7);
+  }
+
+  45% {
+    filter:
+      brightness(1.18);
+
+    box-shadow:
+      0 0 28px
+        rgba(255, 230, 166, 0.92),
+      0 0 65px
+        rgba(241, 177, 93, 0.34),
+      0 16px 26px
+        rgba(0, 0, 0, 0.52);
+  }
+
+  100% {
+    filter:
+      brightness(1.08);
+
+    box-shadow:
+      0 0 22px
+        rgba(255, 226, 156, 0.76),
+      0 0 52px
+        rgba(241, 177, 93, 0.2),
+      0 16px 26px
+        rgba(0, 0, 0, 0.45);
+  }
+}
+
+
+/* =========================================================
+   EXIT — SKY SOFTENS
+   ========================================================= */
+
+.intro-root-exiting
+.intro-sky {
+  animation:
+    introSkyExit
+    1s
+    ease-out
+    forwards;
+}
+
+
+@keyframes introSkyExit {
+  from {
+    opacity: 1;
+
+    filter:
+      blur(0);
+  }
+
+  to {
+    opacity: 0.55;
+
+    filter:
+      blur(1.5px);
+  }
+}
+
+
+/* =========================================================
+   FIREFLIES
+   ========================================================= */
 
 .intro-fireflies {
   position: absolute;
+
   inset: 0;
+
   pointer-events: none;
 }
 
+
 .firefly {
   position: absolute;
-  width: 0.4rem;
-  height: 0.4rem;
+
+  width: 0.35rem;
+  height: 0.35rem;
+
   border-radius: 999px;
-  background: radial-gradient(
-    circle at 40% 30%,
-    #fff7d3 0,
-    #f3c97a 60%,
-    transparent 100%
-  );
-  opacity: 0.75;
-  box-shadow: 0 0 12px rgba(252, 231, 171, 0.85);
-  animation: fireflyDrift 10s ease-in-out infinite alternate;
+
+  background:
+    radial-gradient(
+      circle,
+      #fff9d4 0%,
+      #f2c879 50%,
+      transparent 100%
+    );
+
+  opacity: 0.7;
+
+  box-shadow:
+    0 0 12px
+    rgba(252, 231, 171, 0.75);
+
+  animation:
+    fireflyDrift
+    11s
+    ease-in-out
+    infinite
+    alternate;
 }
 
+
 .firefly-1 {
-  top: 20%;
-  left: 18%;
+  top: 21%;
+  left: 16%;
+
   animation-duration: 12s;
 }
 
+
 .firefly-2 {
-  top: 35%;
-  left: 62%;
-  animation-duration: 11s;
-  animation-delay: 1.4s;
+  top: 34%;
+  left: 61%;
+
+  animation-duration: 13s;
+  animation-delay: 1.2s;
 }
+
 
 .firefly-3 {
-  top: 55%;
-  left: 32%;
-  animation-duration: 13s;
-  animation-delay: 0.8s;
+  top: 54%;
+  left: 31%;
+
+  animation-duration: 14s;
+  animation-delay: 0.7s;
 }
 
+
 .firefly-4 {
-  top: 70%;
-  left: 80%;
+  top: 69%;
+  left: 81%;
+
   animation-duration: 15s;
-  animation-delay: 2.1s;
+  animation-delay: 1.8s;
 }
+
+
+.firefly-5 {
+  top: 78%;
+  left: 48%;
+
+  animation-duration: 13.5s;
+  animation-delay: 2.2s;
+}
+
+
+.firefly-6 {
+  top: 15%;
+  left: 72%;
+
+  animation-duration: 16s;
+  animation-delay: 0.5s;
+}
+
 
 @keyframes fireflyDrift {
   0% {
-    transform: translate3d(-4px, -4px, 0);
-    opacity: 0.5;
+    transform:
+      translate3d(
+        -3px,
+        -4px,
+        0
+      );
+
+    opacity: 0.4;
   }
-  50% {
-    transform: translate3d(6px, -2px, 0);
-    opacity: 1;
+
+  45% {
+    transform:
+      translate3d(
+        5px,
+        -1px,
+        0
+      );
+
+    opacity: 0.9;
   }
+
   100% {
-    transform: translate3d(-2px, 8px, 0);
-    opacity: 0.6;
+    transform:
+      translate3d(
+        -1px,
+        7px,
+        0
+      );
+
+    opacity: 0.55;
   }
 }
 
-/* Subtle wind sweep animation */
-@keyframes introWindSweep {
-  0% {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.35;
-  }
-  50% {
-    opacity: 0.22;
-  }
-  100% {
-    transform: translateX(60vw);
-    opacity: 0;
-  }
-}
 
-/* ===========================
-   Content
-=========================== */
+/* =========================================================
+   CONTENT
+   ========================================================= */
 
 .intro-content {
   position: relative;
-  z-index: 1;
-  min-height: 100vh;
+
+  z-index: 2;
+
   display: flex;
+
+  min-height: 100vh;
+
   align-items: center;
   justify-content: center;
-  padding: 4.5rem 1.5rem 3rem;
+
+  padding:
+    4.5rem
+    1.5rem
+    3rem;
 }
+
 
 .intro-inner {
   max-width: 34rem;
+
   text-align: center;
 }
 
-.intro-chip {
-  margin: 0 0 0.8rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(178, 205, 245, 0.85);
+
+/* =========================================================
+   CONTENT EXIT
+   ========================================================= */
+
+.intro-root-exiting
+.intro-inner {
+  pointer-events: none;
+
+  animation:
+    introContentExit
+    800ms
+    cubic-bezier(
+      0.25,
+      0.7,
+      0.2,
+      1
+    )
+    forwards;
 }
 
+
+@keyframes introContentExit {
+  0% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter:
+      blur(0);
+  }
+
+  35% {
+    opacity: 0.96;
+
+    transform:
+      translateY(-2px)
+      scale(1.005);
+  }
+
+  72% {
+    opacity: 0.45;
+
+    transform:
+      translateY(-10px)
+      scale(0.99);
+
+    filter:
+      blur(0.6px);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-17px)
+      scale(0.985);
+
+    filter:
+      blur(1.6px);
+  }
+}
+
+
+/* =========================================================
+   CHIP
+   ========================================================= */
+
+.intro-chip {
+  margin:
+    0
+    0
+    0.8rem;
+
+  color:
+    rgba(178, 205, 245, 0.85);
+
+  font-size: 0.8rem;
+
+  letter-spacing: 0.24em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
 .intro-title {
-  margin: 0 0 1rem;
-  font-size: clamp(2.1rem, 5vw, 2.7rem);
+  margin:
+    0
+    0
+    1rem;
+
+  color: #f3e9d9;
+
+  font-size:
+    clamp(
+      2.1rem,
+      5vw,
+      2.7rem
+    );
+
   letter-spacing: 0.08em;
 }
 
-.intro-title span {
-  display: inline-block;
-  margin: 0 0.25em;
-  background: linear-gradient(to right, #f0c27b, #f5e6c5);
-  -webkit-background-clip: text;
-  color: transparent;
-}
+
+/* =========================================================
+   TEXT
+   ========================================================= */
 
 .intro-text {
-  margin: 0 0 1.8rem;
+  margin:
+    0
+    0
+    1.8rem;
+
+  color:
+    rgba(243, 233, 217, 0.88);
+
   font-size: 0.98rem;
+
   line-height: 1.7;
-  color: rgba(243, 233, 217, 0.88);
 }
 
+
+/* =========================================================
+   BUTTON
+   ========================================================= */
+
 .intro-button {
-  border: none;
+  padding:
+    0.7rem
+    1.8rem;
+
+  border: 0;
+
   border-radius: 999px;
-  padding: 0.7rem 1.8rem;
-  font-size: 0.95rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: linear-gradient(to right, #f0c27b, #e98f5f);
-  color: #23140a;
+
+  background:
+    linear-gradient(
+      90deg,
+      #f0c27b,
+      #e98f5f
+    );
+
   box-shadow:
-    0 0 0 1px rgba(255, 252, 243, 0.5),
-    0 12px 20px rgba(0, 0, 0, 0.8);
+    0 0 0 1px
+      rgba(255, 252, 243, 0.5),
+    0 12px 20px
+      rgba(0, 0, 0, 0.7);
+
+  color: #23140a;
+
+  cursor: pointer;
+
+  font-size: 0.95rem;
+
+  letter-spacing: 0.16em;
+
+  text-transform: uppercase;
+
   transition:
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    filter 0.15s ease;
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
 }
+
 
 .intro-button:hover,
 .intro-button:focus-visible {
-  transform: translateY(-2px);
-  filter: brightness(1.05);
+  transform:
+    translateY(-2px);
+
+  filter:
+    brightness(1.06);
+
   box-shadow:
-    0 0 0 1px rgba(255, 248, 230, 0.8),
-    0 16px 25px rgba(0, 0, 0, 0.9);
+    0 0 0 1px
+      rgba(255, 248, 230, 0.8),
+    0 16px 26px
+      rgba(0, 0, 0, 0.78);
 }
 
-.intro-hint {
-  margin: 1.2rem 0 0;
+
+.intro-button:focus-visible {
+  outline:
+    2px solid
+    rgba(255, 244, 216, 0.85);
+
+  outline-offset: 0.35rem;
+}
+
+
+.intro-button:disabled {
+  cursor: default;
+}
+
+
+/* =========================================================
+   BUTTON PRESS
+   ========================================================= */
+
+.intro-root-exiting
+.intro-button {
+  animation:
+    enterButtonPress
+    420ms
+    cubic-bezier(
+      0.2,
+      0.7,
+      0.2,
+      1
+    )
+    forwards;
+}
+
+
+@keyframes enterButtonPress {
+  0% {
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translateY(1px)
+      scale(0.96);
+  }
+
+  100% {
+    transform:
+      translateY(-2px)
+      scale(1.02);
+  }
+}
+
+
+/* =========================================================
+   EXIT DUST
+   ========================================================= */
+
+.intro-exit-dust {
+  position: fixed;
+
+  top: 53%;
+  left: 50%;
+
+  z-index: 5;
+
+  width: 1px;
+  height: 1px;
+
+  pointer-events: none;
+}
+
+
+.exit-dust {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  color: #f6d994;
+
+  opacity: 0;
+
   font-size: 0.8rem;
-  color: rgba(195, 204, 229, 0.78);
+
+  text-shadow:
+    0 0 10px
+    rgba(255, 221, 141, 0.7);
 }
 
-/* Responsive */
+
+.intro-root-exiting
+.exit-dust {
+  animation:
+    exitDustFloat
+    900ms
+    cubic-bezier(
+      0.15,
+      0.7,
+      0.25,
+      1
+    )
+    forwards;
+}
+
+
+.exit-dust-1 {
+  --dust-x: -125px;
+  --dust-y: -65px;
+  --dust-delay: 0ms;
+}
+
+
+.exit-dust-2 {
+  --dust-x: -75px;
+  --dust-y: -115px;
+  --dust-delay: 60ms;
+}
+
+
+.exit-dust-3 {
+  --dust-x: 10px;
+  --dust-y: -135px;
+  --dust-delay: 90ms;
+}
+
+
+.exit-dust-4 {
+  --dust-x: 100px;
+  --dust-y: -95px;
+  --dust-delay: 45ms;
+}
+
+
+.exit-dust-5 {
+  --dust-x: 135px;
+  --dust-y: 0px;
+  --dust-delay: 110ms;
+}
+
+
+.exit-dust-6 {
+  --dust-x: 85px;
+  --dust-y: 95px;
+  --dust-delay: 130ms;
+}
+
+
+.exit-dust-7 {
+  --dust-x: -20px;
+  --dust-y: 120px;
+  --dust-delay: 80ms;
+}
+
+
+.exit-dust-8 {
+  --dust-x: -115px;
+  --dust-y: 70px;
+  --dust-delay: 120ms;
+}
+
+
+.intro-root-exiting
+.exit-dust {
+  animation-delay:
+    var(--dust-delay);
+}
+
+
+@keyframes exitDustFloat {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.25);
+  }
+
+  20% {
+    opacity: 0.8;
+  }
+
+  55% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(--dust-x)
+        ),
+        calc(
+          -50% +
+          var(--dust-y)
+        )
+      )
+      scale(1.15);
+  }
+}
+
+
+/* =========================================================
+   SOFT TRANSITION BLOOM
+   ========================================================= */
+
+.intro-transition-bloom {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 6;
+
+  width: 130vmax;
+  height: 130vmax;
+
+  pointer-events: none;
+
+  border-radius: 50%;
+
+  opacity: 0;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(111, 71, 57, 0.96) 0%,
+      rgba(84, 51, 47, 0.94) 27%,
+      rgba(56, 34, 37, 0.9) 49%,
+      rgba(35, 23, 29, 0.72) 66%,
+      transparent 80%
+    );
+
+  filter:
+    blur(26px);
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    scale(0.015);
+}
+
+
+.intro-root-exiting
+.intro-transition-bloom {
+  animation:
+    introSoftBloom
+    1.8s
+    cubic-bezier(
+      0.18,
+      0.72,
+      0.2,
+      1
+    )
+    forwards;
+}
+
+
+@keyframes introSoftBloom {
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.015);
+
+    filter:
+      blur(34px);
+  }
+
+  18% {
+    opacity: 0.18;
+  }
+
+  45% {
+    opacity: 0.72;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.22);
+
+    filter:
+      blur(30px);
+  }
+
+  72% {
+    opacity: 0.96;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.7);
+
+    filter:
+      blur(24px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(1.18);
+
+    filter:
+      blur(18px);
+  }
+}
+
+
+/* =========================================================
+   FINAL COVER
+   ========================================================= */
+
+.intro-transition-cover {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 7;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #392523 0%,
+      #2e1d20 44%,
+      #211619 100%
+    );
+}
+
+
+.intro-root-exiting
+.intro-transition-cover {
+  animation:
+    introSoftCover
+    1.9s
+    cubic-bezier(
+      0.22,
+      0.62,
+      0.22,
+      1
+    )
+    forwards;
+}
+
+
+@keyframes introSoftCover {
+  0%,
+  55% {
+    opacity: 0;
+  }
+
+  72% {
+    opacity: 0.12;
+  }
+
+  88% {
+    opacity: 0.62;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
 @media (max-width: 600px) {
+
   .intro-text {
     font-size: 0.94rem;
   }
+
+
+  .lantern-column-1 {
+    left: 14%;
+  }
+
+
+  .lantern-column-2 {
+    left: 50%;
+  }
+
+
+  .lantern-column-3 {
+    left: 86%;
+  }
+
+
+  .lantern-body {
+    width: 2.8rem;
+    height: 3.8rem;
+  }
+
+
+  .intro-transition-bloom {
+    width: 160vmax;
+    height: 160vmax;
+  }
+
 }
 
-/* Reduced motion */
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+
+  .lantern-column,
   .lantern-body-wrapper,
-  .firefly {
+  .lantern-body,
+  .firefly,
+  .intro-sky,
+  .intro-sky::before,
+  .intro-inner,
+  .intro-button,
+  .exit-dust,
+  .intro-transition-bloom,
+  .intro-transition-cover {
     animation: none !important;
   }
 
-  .intro-sky::before {
-    animation: none !important;
+
+  .lantern-column {
+    transform: none;
   }
+
+
+  .lantern-body-wrapper {
+    transform:
+      translateX(-50%);
+  }
+
+
+  .intro-transition-bloom,
+  .intro-transition-cover {
+    display: none;
+  }
+
 
   .intro-button {
-    transition: none !important;
+    transition: none;
   }
+
 }

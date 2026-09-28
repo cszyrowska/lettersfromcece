@@ -7,6 +7,26 @@ import rehabPhoto from '../assets/rehabilitation_research.png'
 
 export const PROJECTS = [
   {
+    id: 'personal-organiser',
+
+    title:
+      'Personal Organiser — Interactive Prototype',
+
+    description:
+      'An ongoing digital product exploring personalised planning, organisation and behavioural design.',
+
+    skills: [
+      'React',
+      'UX/UI Design',
+      'Product Development',
+      'Behavioural Design',
+    ],
+
+    prototypeUrl:
+      'https://organiserprototype.netlify.app',
+  },
+
+  {
     id: 'criminal-rehabilitation',
 
     title:
@@ -49,27 +69,8 @@ export const PROJECTS = [
     imagePosition:
       'center 40%',
   },
-
-  {
-    id: 'personal-organiser',
-
-    title:
-      'Personal Organiser — Interactive Prototype',
-
-    description:
-      'An ongoing digital product exploring personalised planning, organisation and behavioural design.',
-
-    skills: [
-      'React',
-      'UX/UI Design',
-      'Product Development',
-      'Behavioural Design',
-    ],
-
-    prototypeUrl:
-      'https://organiserprototype.netlify.app',
-  },
 ]
+ 
 
 export default function ResearchSection() {
   return (
@@ -401,7 +402,7 @@ export default function ResearchSection() {
                   ORGANISER LIVE LINK
               ================================= */}
 
-              {project.prototypeUrl ? (
+              {project.prototypeUrl && (
 
                 <a
                   href={project.prototypeUrl}
@@ -411,31 +412,6 @@ export default function ResearchSection() {
                   aria-label={`Open interactive prototype for ${project.title}`}
                 >
                   Try interactive prototype
-
-                  <span
-                    className="arrow"
-                    aria-hidden="true"
-                  >
-                    →
-                  </span>
-
-                </a>
-
-              ) : (
-
-                /* =============================
-                    RESEARCH PLACEHOLDER LINKS
-                ============================== */
-
-                <a
-                  href="#research"
-                  className="research-view-link"
-                  onClick={(event) =>
-                    event.preventDefault()
-                  }
-                  aria-label={`View project details for ${project.title} (coming soon)`}
-                >
-                  View project
 
                   <span
                     className="arrow"

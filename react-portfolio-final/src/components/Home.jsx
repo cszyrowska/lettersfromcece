@@ -1,82 +1,58 @@
 // src/components/Home.jsx
-import { useEffect, useState } from 'react'
+
+import { useEffect } from 'react'
 import '../styles/Home.css'
+
 import AboutSection from './AboutSection.jsx'
 import MiddleColumn from './MiddleColumn.jsx'
 import AboutLetter from './AboutLetter.jsx'
-import CurrentWork from './CurrentWork.jsx'
-import ExperienceSection from './ExperienceSection.jsx'
-import AimsSection from './AimsSection.jsx'
 import ContactSection from './ContactSection.jsx'
 
-function CompassRose() {
-  return (
-    <div className="compass-wrapper" aria-hidden="true">
-      <svg
-        className="compass-svg compass-spin"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <circle cx="12" cy="12" r="10" />
-        <path d="M12 2v20M2 12h20M12 2l-3 3M12 2l3 3M12 22l-3-3M12 22l3-3" />
-        <line x1="18.36" y1="5.64" x2="5.64" y2="18.36" />
-        <line x1="18.36" y1="18.36" x2="5.64" y2="5.64" />
-      </svg>
-    </div>
-  )
-}
+function focusHomeTarget(selector, block = 'center') {
+  const target = document.querySelector(selector)
+  if (!target) return
 
-function AirplaneIcon({ scrollProgress }) {
-  const translateX = scrollProgress * 100
-
-  return (
-    <div
-      className="airplane-icon"
-      style={{
-        transform: `translateX(calc(${translateX}% - 1rem))`,
-      }}
-      aria-hidden="true"
-    >
-      <svg
-        className="airplane-svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M22 2L11 13" />
-        <path d="M22 2L15 22 11 13 2 9z" />
-      </svg>
-    </div>
-  )
+  target.scrollIntoView({ behavior: 'smooth', block })
+  target.classList.remove('home-focus-highlight')
+  window.requestAnimationFrame(() => target.classList.add('home-focus-highlight'))
+  window.setTimeout(() => target.classList.remove('home-focus-highlight'), 1800)
 }
 
 export default function Home() {
-  const [scrollProgress, setScrollProgress] = useState(0)
-
   useEffect(() => {
-    const handleScroll = () => {
-      const maxScrollDistance = 40
-      const currentScroll = window.scrollY
+    const revealItems = Array.from(
+      document.querySelectorAll('[data-home-reveal]'),
+    )
 
-      let progress = 0
-      if (currentScroll > 0) {
-        progress = Math.min(1, currentScroll / maxScrollDistance)
-      }
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
 
-      setScrollProgress(progress)
+    if (prefersReducedMotion) {
+      revealItems.forEach(item => {
+        item.classList.add('home-reveal--visible')
+      })
+      return undefined
     }
 
-    handleScroll()
-    window.addEventListener('scroll', handleScroll)
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return
 
-    return () => window.removeEventListener('scroll', handleScroll)
+          entry.target.classList.add('home-reveal--visible')
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -5% 0px',
+      },
+    )
+
+    revealItems.forEach(item => observer.observe(item))
+
+    return () => observer.disconnect()
   }, [])
 
   return (
@@ -84,92 +60,301 @@ export default function Home() {
       <div className="home-inner">
         <header className="letters-hero">
           <div className="letters-hero-copy">
-            <div className="letters-label-row">
-              <span className="letters-badge">letters from cece</span>
-              <span className="letters-badge subtle">travel diary · university life</span>
+            <div
+              className="hero-dateline home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '80ms' }}
+            >
+              <span>LETTERS FROM CECE</span>
+              <span className="hero-dateline-dot" aria-hidden="true">♡</span>
+              <span>EST. 2026</span>
             </div>
 
-            <h1 className="letters-title">
-              <span className="title-script">Letters</span>
-              <span className="title-block">from Cece</span>
+            <h1
+              className="letters-title home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '190ms' }}
+            >
+              <img
+                src="/src/assets/letters-from-cece.png"
+                alt="Letters from Cece"
+                className="letters-title-image"
+              />
             </h1>
 
-            <p className="letters-intro">
-              I&apos;m collecting the beautiful, ordinary, slightly magical bits of growing up
-              between cities, classrooms, camera rolls and the kind of moments that deserve a
-              slower second look.
+            <p
+              className="hero-handwritten-note home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '300ms' }}
+            >
+              a useful little corner of the internet
             </p>
 
-            <div className="letters-actions">
-              <a href="#blog" className="primary-action">Read the latest letter</a>
-              <a href="#postcards" className="secondary-action">Browse postcards</a>
+            <p
+              className="letters-intro home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '410ms' }}
+            >
+              I&apos;m collecting the beautiful, ordinary and
+              slightly magical bits of growing up — places I go,
+              things I learn, photographs I nearly forget about
+              and little moments worth keeping.
+            </p>
+
+            <div
+              className="letters-actions home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '520ms' }}
+            >
+              <a
+                href="#postcards"
+                className="hero-link hero-link-primary"
+                onClick={event => {
+                  event.preventDefault()
+                  focusHomeTarget('.category-bookmarks')
+                }}
+              >
+                <span>Read the latest letter</span>
+                <span aria-hidden="true">→</span>
+              </a>
+
+              <a
+                href="#about-letter"
+                className="hero-link hero-link-secondary"
+                onClick={event => {
+                  event.preventDefault()
+                  focusHomeTarget('.postcard-archive')
+                }}
+              >
+                <span>Browse the postcards</span>
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
 
-            <ul className="letters-stats" aria-label="Site highlights">
-              <li>
-                <strong>8</strong>
-                <span>cities</span>
-              </li>
-              <li>
-                <strong>3</strong>
-                <span>study years</span>
-              </li>
-              <li>
-                <strong>∞</strong>
+            <div
+              className="hero-topics home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '630ms' }}
+            >
+              <span className="hero-topics-label">currently collecting</span>
+
+              <div className="hero-topic-list">
+                <span>travel notes</span>
+                <span aria-hidden="true">✦</span>
+                <span>student life</span>
+                <span aria-hidden="true">✦</span>
                 <span>little joys</span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
 
-          <div className="letters-visual" aria-label="Decorative scrapbook collage">
-            <div className="paper-cluster">
-              <a href="#blog" className="paper-item paper-letter" aria-label="Read the latest letter">
-                <span className="mini-label">latest letter</span>
-                <span className="postage-stamp">Paris</span>
-                <h2>How to fall in love with a city slowly</h2>
-                <p>
-                  On rainy mornings, train platforms, and the soft thrill of noticing a place become
-                  yours a little at a time.
-                </p>
-              </a>
+          <div
+            className="hero-mail-scene"
+            aria-label="A decorative collection of letters and travel notes"
+          >
+            <div
+              className="hero-mail-shadow home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '710ms', '--reveal-y': '8px' }}
+              aria-hidden="true"
+            />
 
-              <div className="paper-item paper-note" aria-label="Little reminder note">
-                <span className="mini-label">little reminder ♡</span>
-                <p className="note-script">Notice the beautiful thing<br />before it becomes ordinary.</p>
+            <div
+              className="hero-back-postcard home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '300ms', '--reveal-x': '18px' }}
+              aria-hidden="true"
+            >
+              <span className="back-postcard-label">
+                somewhere worth remembering
+              </span>
+
+              <div className="back-postcard-lines">
+                <span />
+                <span />
+                <span />
               </div>
 
-              <a href="#blog" className="paper-item paper-notebook" aria-label="Open travel notes">
-                <span className="mini-label">in my notebook</span>
-                <h3>travel notes</h3>
-                <p>Photo rolls, useful finds and thoughts I want to keep.</p>
-              </a>
+              <div className="back-postcard-stamp">CECE</div>
+            </div>
+
+            <div
+              className="hero-photo home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '420ms', '--reveal-x': '-16px' }}
+              aria-hidden="true"
+            >
+              <div className="hero-photo-image">
+                <span>photo</span>
+                <strong>coming soon ♡</strong>
+              </div>
+
+              <span className="hero-photo-caption">somewhere lovely</span>
+              <span className="hero-photo-tape" />
+            </div>
+
+            <a
+              href="#blog"
+              className="hero-letter home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '540ms', '--reveal-y': '20px' }}
+              aria-label="Read the latest letter"
+            >
+              <div className="hero-letter-top">
+                <span className="hero-letter-kicker">latest letter</span>
+
+                <span className="hero-letter-postmark">
+                  SEP
+                  <br />
+                  2026
+                </span>
+              </div>
+
+              <p className="hero-letter-to">Dear reader,</p>
+
+              <h2>
+                How to fall in love
+                <br />
+                with a city slowly
+              </h2>
+
+              <p className="hero-letter-preview">
+                On rainy mornings, train platforms, familiar
+                coffee orders and the soft thrill of noticing
+                somewhere begin to feel like yours.
+              </p>
+
+              <div className="hero-letter-footer">
+                <span>continue reading</span>
+                <span aria-hidden="true">→</span>
+              </div>
+            </a>
+
+            <div
+              className="hero-sticky-note home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '660ms', '--reveal-x': '14px' }}
+              aria-hidden="true"
+            >
+              <span className="hero-note-tape" />
+              <span className="hero-sticky-label">P.S. ♡</span>
+
+              <p>
+                notice the beautiful thing
+                before it becomes ordinary.
+              </p>
+            </div>
+
+            <div
+              className="hero-ticket home-reveal"
+              data-home-reveal
+              style={{ '--reveal-delay': '780ms', '--reveal-x': '-12px' }}
+              aria-hidden="true"
+            >
+              <span>CECE&apos;S NOTES</span>
+              <strong>TRAVEL · LIFE · THINGS I LOVE</strong>
+              <span className="hero-ticket-number">No. 001</span>
             </div>
           </div>
         </header>
 
-        <nav className="letters-nav" aria-label="Main site sections">
-          <a href="#blog">Letters</a>
-          <a href="#postcards">Postcards</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+        <nav
+          className="letters-nav home-reveal"
+          data-home-reveal
+          style={{ '--reveal-delay': '890ms', '--reveal-y': '10px' }}
+          aria-label="Main site sections"
+        >
+          <a
+            href="#postcards"
+            onClick={event => {
+              event.preventDefault()
+              focusHomeTarget('.category-bookmarks')
+            }}
+          >
+            Letters
+          </a>
+
+          <span aria-hidden="true">♡</span>
+
+          <a
+            href="#about-letter"
+            onClick={event => {
+              event.preventDefault()
+              focusHomeTarget('.postcard-archive')
+            }}
+          >
+            Postcards
+          </a>
+
+          <span aria-hidden="true">♡</span>
+
+          <a
+            href="#about"
+            onClick={event => {
+              event.preventDefault()
+              focusHomeTarget('.cece-character')
+            }}
+          >
+            About
+          </a>
+
+          <span aria-hidden="true">♡</span>
+
+          <a
+            href="#contact"
+            onClick={event => {
+              event.preventDefault()
+              focusHomeTarget('#contact', 'end')
+            }}
+          >
+            Contact
+          </a>
         </nav>
 
-        <div className="hero-divider">
-          <div className="travel-line">
-            <AirplaneIcon scrollProgress={scrollProgress} />
-          </div>
-          <p className="hero-note">follow the route</p>
+        <div
+          className="hero-divider home-reveal"
+          data-home-reveal
+          style={{ '--reveal-delay': '980ms', '--reveal-y': '8px' }}
+          aria-hidden="true"
+        >
+          <span className="hero-divider-line" />
+          <span className="hero-divider-mark">✉</span>
+          <span className="hero-divider-line" />
         </div>
 
         <div className="home-content-columns">
-          <AboutSection />
-          <MiddleColumn />
-          <AboutLetter />
+          <div
+            className="home-column-slot home-column-about home-reveal"
+            data-home-reveal
+            style={{ '--reveal-delay': '0ms', '--reveal-x': '-18px' }}
+          >
+            <AboutSection />
+          </div>
+
+          <div
+            className="home-column-slot home-column-middle home-reveal"
+            data-home-reveal
+            style={{ '--reveal-delay': '130ms', '--reveal-y': '22px' }}
+          >
+            <MiddleColumn />
+          </div>
+
+          <div
+            className="home-column-slot home-column-about-letter home-reveal"
+            data-home-reveal
+            style={{ '--reveal-delay': '260ms', '--reveal-x': '18px' }}
+          >
+            <AboutLetter />
+          </div>
         </div>
-        <CurrentWork />
-        <ExperienceSection />
-        <AimsSection />
-        <ContactSection />
+
+        <div
+          className="home-contact-reveal home-reveal"
+          data-home-reveal
+          style={{ '--reveal-delay': '80ms', '--reveal-y': '24px' }}
+        >
+          <ContactSection />
+        </div>
       </div>
     </main>
   )

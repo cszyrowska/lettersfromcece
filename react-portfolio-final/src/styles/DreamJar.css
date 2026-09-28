@@ -1,0 +1,901 @@
+/* =========================================================
+   DREAM JAR
+   ========================================================= */
+
+.dream-jar-scene {
+  --jar-note-destination-x: 45px;
+  --jar-note-destination-y: -96px;
+
+  position: relative;
+
+  width: 300px;
+  max-width: calc(100vw - 2rem);
+
+  min-height: 370px;
+
+  margin: 1.3rem 0 0;
+
+  overflow: visible;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   FULL-SCREEN BLURRED BACKDROP
+   ========================================================= */
+
+.dream-jar-scene.is-writing::before {
+  content: '';
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 999;
+
+  background:
+    rgba(30, 18, 21, 0.58);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  animation:
+    dream-jar-backdrop-in
+    220ms
+    ease
+    both;
+}
+
+
+/* =========================================================
+   JAR AREA
+   ========================================================= */
+
+.dream-jar-artwork {
+  position: relative;
+
+  width: 100%;
+  height: 345px;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   JAR IMAGE / TRIGGER
+   ========================================================= */
+
+.dream-jar-trigger {
+    position: absolute;
+  right: 40px;
+  bottom: 25px;
+  z-index: 2;
+  width: 280px;
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  filter:
+    drop-shadow(
+      0 10px 10px
+      rgba(35, 20, 23, 0.18)
+    );
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+
+.dream-jar-trigger:hover,
+.dream-jar-trigger:focus-visible {
+  transform: scale(1.015);
+
+  filter:
+    drop-shadow(
+      0 11px 13px
+      rgba(222, 174, 133, 0.28)
+    );
+}
+
+
+.dream-jar-trigger:focus-visible {
+  outline:
+    1px dashed
+    rgba(237, 201, 163, 0.9);
+
+  outline-offset: 0.35rem;
+}
+
+
+.dream-jar-trigger:disabled {
+  cursor: default;
+}
+
+
+.dream-jar-trigger img {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+
+/* =========================================================
+   LARGE WISH PAPER
+   ========================================================= */
+
+.dream-jar-paper {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  z-index: 1000;
+
+  display: flex;
+
+  width:
+    min(
+      560px,
+      calc(100vw - 3rem)
+    );
+
+  min-height: 380px;
+
+  box-sizing: border-box;
+
+  flex-direction: column;
+
+  align-items: stretch;
+  justify-content: center;
+
+  padding:
+    3.2rem
+    3rem
+    2.6rem;
+
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(
+        126,
+        91,
+        70,
+        0.035
+      ) 0,
+      rgba(
+        126,
+        91,
+        70,
+        0.035
+      ) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    #f6e8cf;
+
+  border:
+    1px solid
+    rgba(
+      119,
+      83,
+      66,
+      0.22
+    );
+
+  box-shadow:
+    8px 12px 0
+      rgba(
+        64,
+        38,
+        35,
+        0.14
+      ),
+    0 28px 70px
+      rgba(
+        0,
+        0,
+        0,
+        0.32
+      );
+
+  clip-path:
+    polygon(
+      1% 2%,
+      98% 0,
+      100% 96%,
+      95% 100%,
+      3% 98%,
+      0 6%
+    );
+
+  color: #65463d;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    )
+    rotate(-1.5deg);
+
+  transform-origin:
+    48% 50%;
+}
+
+
+/* subtle paper line */
+.dream-jar-paper::after {
+  content: '';
+
+  position: absolute;
+
+  right: 1.5rem;
+  bottom: 1.4rem;
+
+  width: 4.5rem;
+  height: 1px;
+
+  background:
+    rgba(
+      126,
+      91,
+      70,
+      0.24
+    );
+
+  transform:
+    rotate(-7deg);
+}
+
+
+/* =========================================================
+   HIDDEN ACCESSIBLE LABEL
+   ========================================================= */
+
+.dream-jar-paper label {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  clip:
+    rect(
+      0 0 0 0
+    );
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   HEART
+   ========================================================= */
+
+.paper-heart {
+  position: absolute;
+
+  top: 1.25rem;
+  right: 1.6rem;
+
+  color: #b86e6a;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 1.7rem;
+
+  transform:
+    rotate(10deg);
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.dream-jar-close {
+  position: absolute;
+
+  top: 1.1rem;
+  left: 1.25rem;
+
+  z-index: 2;
+
+  width: 2rem;
+  height: 2rem;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color:
+    rgba(
+      101,
+      70,
+      61,
+      0.68
+    );
+
+  cursor: pointer;
+
+  font-family:
+    Georgia,
+    serif;
+
+  font-size: 1.8rem;
+
+  line-height: 1;
+
+  transition:
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+
+.dream-jar-close:hover,
+.dream-jar-close:focus-visible {
+  color: #713f43;
+
+  transform:
+    rotate(-8deg)
+    scale(1.08);
+}
+
+
+.dream-jar-close:focus-visible {
+  outline:
+    1px dashed
+    #713f43;
+
+  outline-offset: 0.15rem;
+}
+
+
+.dream-jar-close:disabled {
+  opacity: 0.2;
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+.dream-jar-paper textarea {
+  width: 100%;
+
+  min-height: 190px;
+
+  box-sizing: border-box;
+
+  resize: none;
+
+  padding:
+    1rem 0.4rem;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  color: #65463d;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 1.15rem;
+
+  line-height: 1.65;
+
+  text-align: left;
+}
+
+
+.dream-jar-paper textarea::placeholder {
+  color:
+    rgba(
+      101,
+      70,
+      61,
+      0.5
+    );
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.dream-jar-submit {
+  align-self: center;
+
+  margin-top: 1rem;
+
+  padding:
+    0.45rem
+    0.25rem;
+
+  border: 0;
+
+  border-bottom:
+    1px dashed
+    rgba(
+      133,
+      79,
+      71,
+      0.65
+    );
+
+  background: transparent;
+
+  color: #a35756;
+
+  cursor: pointer;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 1rem;
+
+  transition:
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+
+.dream-jar-submit:hover,
+.dream-jar-submit:focus-visible {
+  color: #713f43;
+
+  transform:
+    scale(1.03);
+}
+
+
+.dream-jar-submit:focus-visible {
+  outline:
+    1px dashed
+    #713f43;
+
+  outline-offset: 0.2rem;
+}
+
+
+.dream-jar-paper textarea:disabled,
+.dream-jar-submit:disabled {
+  opacity: 0.2;
+
+  cursor: default;
+}
+
+
+/* =========================================================
+   PAPER FOLD / DROP
+   ========================================================= */
+
+.dream-jar-scene.is-folding
+.dream-jar-paper {
+  animation:
+    dream-paper-fold
+    520ms
+    ease-in
+    forwards;
+}
+
+
+.dream-jar-scene.is-folding
+.dream-jar-paper textarea,
+.dream-jar-scene.is-folding
+.dream-jar-submit,
+.dream-jar-scene.is-folding
+.dream-jar-close,
+.dream-jar-scene.is-folding
+.paper-heart {
+  opacity: 0;
+
+  transition:
+    opacity 140ms ease;
+}
+
+
+.dream-jar-scene.is-dropping
+.dream-jar-paper {
+  z-index: 1;
+
+  animation:
+    dream-paper-drop
+    800ms
+    ease-in
+    forwards;
+}
+
+
+/* =========================================================
+   SPARKLE
+   ========================================================= */
+
+.dream-jar-sparkle {
+  position: absolute;
+
+  top: 2.4rem;
+  left: 48%;
+
+  z-index: 4;
+
+  color: #f6d78f;
+
+  font-size: 1.2rem;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+.dream-jar-scene.has-made-wish
+.dream-jar-sparkle {
+  animation:
+    dream-jar-sparkle
+    900ms
+    ease-out
+    both;
+}
+
+
+/* =========================================================
+   LABEL
+   ========================================================= */
+
+.dream-jar-label {
+  position: relative;
+  z-index: 5;
+
+  margin: 0.1rem 0 0;
+
+  /* MOVE THE TEXT */
+  transform: translate(-30px, -20px);
+
+  color: #c79f86;
+
+  font-family:
+    'Segoe Print',
+    'Bradley Hand',
+    cursive;
+
+  font-size: 0.72rem;
+}
+
+
+/* =========================================================
+   BACKDROP ANIMATION
+   ========================================================= */
+
+@keyframes dream-jar-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   PAPER FOLD ANIMATION
+   ========================================================= */
+
+@keyframes dream-paper-fold {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      rotate(-1.5deg)
+      scale(1);
+  }
+
+  45% {
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      rotate(1deg)
+      scaleX(0.72)
+      scaleY(0.95);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      rotate(5deg)
+      scaleX(0.42)
+      scaleY(0.32);
+  }
+}
+
+
+/* =========================================================
+   PAPER DROP INTO JAR
+   ========================================================= */
+
+@keyframes dream-paper-drop {
+  0% {
+    opacity: 1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      rotate(5deg)
+      scale(
+        0.42,
+        0.32
+      );
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(
+            --jar-note-destination-x
+          )
+        ),
+        calc(
+          -50% +
+          var(
+            --jar-note-destination-y
+          )
+        )
+      )
+      rotate(15deg)
+      scale(
+        0.12,
+        0.09
+      );
+  }
+}
+
+
+/* =========================================================
+   SPARKLE ANIMATION
+   ========================================================= */
+
+@keyframes dream-jar-sparkle {
+  0% {
+    opacity: 0;
+
+    transform:
+      scale(0.65)
+      rotate(-12deg);
+  }
+
+  35% {
+    opacity: 0.85;
+
+    transform:
+      scale(1)
+      rotate(8deg);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      scale(0.8)
+      rotate(18deg);
+  }
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .dream-jar-scene {
+    margin:
+      1.25rem
+      auto
+      0;
+  }
+
+  .dream-jar-paper {
+    width:
+      min(
+        520px,
+        calc(100vw - 2rem)
+      );
+
+    min-height: 360px;
+
+    padding:
+      3rem
+      2.5rem
+      2.4rem;
+  }
+
+  .dream-jar-paper textarea {
+    min-height: 175px;
+
+    font-size: 1.05rem;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .dream-jar-paper {
+    width:
+      calc(
+        100vw -
+        1.5rem
+      );
+
+    min-height: 330px;
+
+    padding:
+      2.8rem
+      1.6rem
+      2rem;
+  }
+
+  .dream-jar-paper textarea {
+    min-height: 155px;
+
+    font-size: 1rem;
+  }
+
+  .dream-jar-submit {
+    font-size: 0.9rem;
+  }
+
+  .dream-jar-close {
+    top: 0.9rem;
+    left: 1rem;
+
+    font-size: 1.6rem;
+  }
+
+  .paper-heart {
+    top: 1rem;
+    right: 1.2rem;
+
+    font-size: 1.45rem;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .dream-jar-scene {
+    --jar-note-destination-x: 38px;
+    --jar-note-destination-y: -88px;
+  }
+
+  .dream-jar-trigger {
+    width: 260px;
+  }
+
+  .dream-jar-paper {
+    width:
+      calc(
+        100vw -
+        1rem
+      );
+
+    min-height: 310px;
+
+    padding:
+      2.5rem
+      1.25rem
+      1.8rem;
+  }
+
+  .dream-jar-paper textarea {
+    min-height: 145px;
+
+    font-size: 0.95rem;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .dream-jar-trigger {
+    transition: none;
+  }
+
+  .dream-jar-scene.is-dropping
+  .dream-jar-paper {
+    animation:
+      dream-paper-reduced
+      500ms
+      ease-out
+      forwards;
+  }
+
+  .dream-jar-scene.has-made-wish
+  .dream-jar-sparkle {
+    animation-duration: 500ms;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION DROP
+   ========================================================= */
+
+@keyframes dream-paper-reduced {
+  from {
+    opacity: 1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(0.85);
+  }
+
+  to {
+    opacity: 0;
+
+    transform:
+      translate(
+        calc(
+          -50% +
+          var(
+            --jar-note-destination-x
+          )
+        ),
+        calc(
+          -50% +
+          var(
+            --jar-note-destination-y
+          )
+        )
+      )
+      scale(0.35);
+  }
+}

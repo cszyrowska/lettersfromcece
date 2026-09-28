@@ -2,8 +2,8 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/TravelBlog.css'
-import travelPlaceholder from '../assets/travel_coming_soon.png'
 import train from '../assets/Scotland/train.jpg'
+import tower from '../assets/Paris/tower.png'
 
 export const TRIPS = [
   {
@@ -25,42 +25,9 @@ export const TRIPS = [
     date: 'January 2026',
     snippet:
       'A few days of metro rides, café windows and getting lost between the river and side streets.',
-    image: travelPlaceholder,
+    image: tower,
   },
 
-
-  {
-    id: 'iceland',
-    slug: 'iceland', // 🔗 links to /travel/iceland
-    title: 'Iceland lights',
-    location: 'Iceland',
-    date: 'Winter 2024',
-    snippet:
-      'Snow, hot pools, black beaches and nights spent looking up at the sky.',
-    image: travelPlaceholder, // swap for an Iceland thumbnail later
-  },
-
-  {
-    id: 'kenya',
-    slug: 'kenya', // links to /travel/kenya
-    title: 'Kenya sunsets',
-    location: 'Kenya',
-    date: 'Summer 2023',
-    snippet:
-      'Safari mornings, soft coast evenings and dusty roads that feel like a film.',
-    image: travelPlaceholder, // swap for a real Kenya thumbnail later
-  },
-  
-  {
-    id: 'asia',
-    slug: 'asia',
-    title: 'UPCOMING: Asia',
-    location: 'Asia',
-    date: 'Future adventure',
-    snippet:
-      'A bigger journey I want to take slowly – long buses, new food, and a different rhythm of days.',
-    image: travelPlaceholder,
-  },
 ]
 
 export default function TravelBlogSection() {
