@@ -1,12 +1,31 @@
 // src/components/Home.jsx
 
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import '../styles/Home.css'
+import signatureOutfitVideo from '../assets/signature_outfit.mp4'
+import parisVideo from '../assets/paris_tt.mp4'
+import dongNailsVideo from '../assets/dong_nails.mp4'
 
 import AboutSection from './AboutSection.jsx'
 import MiddleColumn from './MiddleColumn.jsx'
 import AboutLetter from './AboutLetter.jsx'
 import ContactSection from './ContactSection.jsx'
+
+const homeVideos = [
+  {
+    src: signatureOutfitVideo,
+    caption: 'my signature outfit on TikTok',
+  },
+  {
+    src: parisVideo,
+    caption: 'a little Paris moment on TikTok',
+  },
+  {
+    src: dongNailsVideo,
+    caption: 'nail day on TikTok',
+  },
+]
+const homeVideoRotationStorageKey = 'home-video-rotation-index'
 
 function focusHomeTarget(selector, block = 'center') {
   const target = document.querySelector(selector)
@@ -19,6 +38,87 @@ function focusHomeTarget(selector, block = 'center') {
 }
 
 export default function Home() {
+  const [isDesktopExperience, setIsDesktopExperience] = useState(false)
+  const [homeVideoIndex] = useState(() => {
+    const savedIndex = Number(
+      window.localStorage.getItem(homeVideoRotationStorageKey),
+    )
+
+    return Number.isInteger(savedIndex) &&
+      savedIndex >= 0 &&
+      savedIndex < homeVideos.length
+      ? savedIndex
+      : 0
+  })
+  const [isSignatureOutfitMuted, setIsSignatureOutfitMuted] = useState(true)
+  const desktopCanvasRef = useRef(null)
+  const desktopInnerRef = useRef(null)
+  const currentHomeVideo = homeVideos[homeVideoIndex]
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      homeVideoRotationStorageKey,
+      String((homeVideoIndex + 1) % homeVideos.length),
+    )
+  }, [homeVideoIndex])
+
+  const focusHomeSection = (selector, block = 'center') => {
+    const target = document.querySelector(selector)
+    const isHiddenSideTarget = target?.closest(
+      '.home-column-about, .home-column-about-letter',
+    )
+
+    if (
+      !isDesktopExperience &&
+      window.matchMedia('(max-width: 768px)').matches &&
+      isHiddenSideTarget
+    ) {
+      setIsDesktopExperience(true)
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => focusHomeTarget(selector, block))
+      })
+      return
+    }
+
+    focusHomeTarget(selector, block)
+  }
+
+  useLayoutEffect(() => {
+    const root = document.documentElement
+    root.classList.toggle('home-desktop-experience', isDesktopExperience)
+
+    return () => root.classList.remove('home-desktop-experience')
+  }, [isDesktopExperience])
+
+  useLayoutEffect(() => {
+    if (!isDesktopExperience) return undefined
+
+    const canvas = desktopCanvasRef.current
+    const inner = desktopInnerRef.current
+    if (!canvas || !inner) return undefined
+
+    const updateDesktopScale = () => {
+      const scale = Math.min(1, document.documentElement.clientWidth / 1180)
+      document.documentElement.style.setProperty(
+        '--desktop-experience-scale',
+        String(scale),
+      )
+      canvas.style.height = `${inner.offsetHeight * scale + 64}px`
+    }
+
+    const resizeObserver = new ResizeObserver(updateDesktopScale)
+    resizeObserver.observe(inner)
+    window.addEventListener('resize', updateDesktopScale)
+    updateDesktopScale()
+
+    return () => {
+      resizeObserver.disconnect()
+      window.removeEventListener('resize', updateDesktopScale)
+      canvas.style.height = ''
+      document.documentElement.style.removeProperty('--desktop-experience-scale')
+    }
+  }, [isDesktopExperience])
+
   useEffect(() => {
     const revealItems = Array.from(
       document.querySelectorAll('[data-home-reveal]'),
@@ -57,7 +157,25 @@ export default function Home() {
 
   return (
     <main className="home-main">
-      <div className="home-inner">
+      <div className="mobile-experience-controls">
+        <button
+          type="button"
+          className="mobile-experience-button"
+          onClick={() => setIsDesktopExperience(current => !current)}
+        >
+          {isDesktopExperience
+            ? 'Return to mobile view'
+            : 'Enter desktop experience ↗'}
+        </button>
+        {!isDesktopExperience && (
+          <p className="mobile-experience-message">
+            For the full magical experience, visit on a computer ✨
+          </p>
+        )}
+      </div>
+
+      <div className="home-desktop-canvas" ref={desktopCanvasRef}>
+        <div className="home-inner" ref={desktopInnerRef}>
         <header className="letters-hero">
           <div className="letters-hero-copy">
             <div
@@ -123,7 +241,7 @@ export default function Home() {
                 className="hero-link hero-link-secondary"
                 onClick={event => {
                   event.preventDefault()
-                  focusHomeTarget('.postcard-archive')
+                  focusHomeSection('.postcard-archive')
                 }}
               >
                 <span>Browse the postcards</span>
@@ -182,14 +300,44 @@ export default function Home() {
               className="hero-photo home-reveal"
               data-home-reveal
               style={{ '--reveal-delay': '420ms', '--reveal-x': '-16px' }}
-              aria-hidden="true"
             >
-              <div className="hero-photo-image">
-                <span>photo</span>
-                <strong>coming soon ♡</strong>
-              </div>
+              <video
+                className="hero-photo-video"
+                src={currentHomeVideo.src}
+                autoPlay
+                loop
+                muted={isSignatureOutfitMuted}
+                playsInline
+                preload="metadata"
+              />
 
-              <span className="hero-photo-caption">somewhere lovely</span>
+              <button
+                className="hero-photo-volume"
+                type="button"
+                aria-label={
+                  isSignatureOutfitMuted
+                    ? `Turn ${currentHomeVideo.caption} sound on`
+                    : `Mute ${currentHomeVideo.caption} sound`
+                }
+                aria-pressed={!isSignatureOutfitMuted}
+                onClick={() =>
+                  setIsSignatureOutfitMuted(isMuted => !isMuted)
+                }
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+                  {isSignatureOutfitMuted ? (
+                    <path d="m16 9 5 6m0-6-5 6" />
+                  ) : (
+                    <>
+                      <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+                      <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+                    </>
+                  )}
+                </svg>
+              </button>
+
+              <span className="hero-photo-caption">{currentHomeVideo.caption}</span>
               <span className="hero-photo-tape" />
             </div>
 
@@ -275,7 +423,7 @@ export default function Home() {
             href="#postcards"
             onClick={event => {
               event.preventDefault()
-              focusHomeTarget('.category-bookmarks')
+            focusHomeSection('.category-bookmarks')
             }}
           >
             Letters
@@ -287,7 +435,7 @@ export default function Home() {
             href="#about-letter"
             onClick={event => {
               event.preventDefault()
-              focusHomeTarget('.postcard-archive')
+              focusHomeSection('.postcard-archive')
             }}
           >
             Postcards
@@ -299,7 +447,7 @@ export default function Home() {
             href="#about"
             onClick={event => {
               event.preventDefault()
-              focusHomeTarget('.cece-character')
+              focusHomeSection('.cece-character')
             }}
           >
             About
@@ -311,7 +459,7 @@ export default function Home() {
             href="#contact"
             onClick={event => {
               event.preventDefault()
-              focusHomeTarget('#contact', 'end')
+              focusHomeSection('#contact', 'end')
             }}
           >
             Contact
@@ -361,6 +509,7 @@ export default function Home() {
           style={{ '--reveal-delay': '80ms', '--reveal-y': '24px' }}
         >
           <ContactSection />
+        </div>
         </div>
       </div>
     </main>

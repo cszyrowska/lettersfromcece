@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
-import { PROJECTS } from './ResearchSection.jsx'
+import { PROJECTS } from './projectData.js'
 import { TRIPS } from './TravelBlogSection.jsx'
+import { POSTCARDS } from './postcardData.js'
 import '../styles/MiddleLetters.css'
 
 const CATEGORIES = {
@@ -9,21 +11,17 @@ const CATEGORIES = {
     label: 'Travel',
     note: 'letters from places I have been ✈',
   },
+  letters: {
+    label: 'Letters',
+    note: 'little notes from my corner of the internet ♡',
+  },
   projects: {
     label: 'Projects',
     note: 'things I have made & explored',
   },
 }
 
-function projectClickHandler(project) {
-  if (project.prototypeUrl) return undefined
-
-  return event => {
-    event.preventDefault()
-  }
-}
-
-function LetterCover({ type, title, subtitle, image, excerpt, date, href, onClick, index, note }) {
+function LetterCover({ type, title, subtitle, image, excerpt, date, href, onClick, index, note, cta }) {
   const isExternal = href?.startsWith('http')
   const letterClass = `letter-cover letter-cover-${index % 3} letter-cover-${type}`
   const content = (
@@ -53,7 +51,7 @@ function LetterCover({ type, title, subtitle, image, excerpt, date, href, onClic
         {note && <span className="letter-cover-note">{note}</span>}
         {href && (
           <span className="letter-cover-cta">
-            {type === 'travel' ? 'read letter' : 'view project'} <span aria-hidden="true">→</span>
+            {cta || (type === 'travel' ? 'read letter' : 'view project')} <span aria-hidden="true">→</span>
           </span>
         )}
       </div>
@@ -134,26 +132,135 @@ function travelLetters() {
 }
 
 function projectLetters() {
-  return PROJECTS.map(project => {
-    const isStandaloneProject = ['criminal-rehabilitation', 'dna-origami'].includes(project.id)
-
-    return {
+  return [
+    ...PROJECTS.map(project => ({
       id: project.id,
       type: 'projects',
       title: project.title,
-      subtitle: project.id === 'personal-organiser' ? 'research / interactive prototype' : 'research letter',
+      subtitle: 'research / interactive prototype',
       image: project.image,
       excerpt: project.description,
-      href: isStandaloneProject ? undefined : (project.prototypeUrl || '#research'),
-      onClick: isStandaloneProject ? undefined : projectClickHandler(project),
+      href: project.prototypeUrl,
       note: project.skills.slice(0, 2).join(' · '),
+    })),
+    {
+      id: 'professional-portfolio',
+      type: 'projects',
+      title: 'My Professional Portfolio',
+      subtitle: 'a letter from my workbench',
+      excerpt: 'Visit my professional portfolio to explore my work and experience.',
+      href: 'https://cszyrowska.com/',
+      note: 'professional portfolio',
+      cta: 'visit portfolio',
+    },
+  ]
+}
+
+function PostcardReader({ postcard, onClose }) {
+  const closeButtonRef = useRef(null)
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+    const previousFocus = document.activeElement
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        onClose()
+      } else if (event.key === 'Tab') {
+        event.preventDefault()
+        closeButtonRef.current?.focus()
+      }
     }
-  })
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+      if (previousFocus instanceof HTMLElement) previousFocus.focus()
+    }
+  }, [onClose])
+
+  return createPortal(
+    <div
+      className="postcard-reading-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="postcard-reading-title"
+    >
+      <button
+        ref={closeButtonRef}
+        className="postcard-reading-close"
+        type="button"
+        aria-label="Close letter"
+        onClick={onClose}
+      >
+        ×
+      </button>
+      <article className="postcard-reading-letter">
+        <header className="postcard-reading-header">
+          <p className="postcard-reading-kicker">
+            Letter from Cece · No. {String(postcard.id).padStart(2, '0')} · {postcard.date}
+          </p>
+          <h1 id="postcard-reading-title">{postcard.title}</h1>
+          {postcard.subtitle && <p className="postcard-reading-subtitle">{postcard.subtitle}</p>}
+          <p className="postcard-reading-greeting">Dear reader,</p>
+        </header>
+        <div className="postcard-reading-copy">
+          {postcard.paragraphs.map((paragraph, index) => (
+            <p className={index === 0 ? 'postcard-reading-opening' : ''} key={paragraph}>
+              {paragraph}
+            </p>
+          ))}
+          <p className="postcard-reading-signoff">With love, Cece <span>♡</span></p>
+        </div>
+      </article>
+    </div>,
+    document.body,
+  )
+}
+
+function PostcardShelf() {
+  const [openPostcard, setOpenPostcard] = useState(null)
+  const closeReader = () => setOpenPostcard(null)
+
+  return (
+    <>
+      {POSTCARDS.map(postcard => (
+        <button
+          className={`postcard-shelf-card${postcard.paragraphs ? ' postcard-shelf-card--published' : ' postcard-shelf-card--coming-soon'}${postcard.frontImage ? ' postcard-shelf-card--has-image' : ''}`}
+          key={postcard.id}
+          type="button"
+          aria-label={`${postcard.paragraphs ? 'Read' : 'Coming soon:'} ${postcard.title}`}
+          disabled={!postcard.paragraphs}
+          onClick={() => setOpenPostcard(postcard)}
+        >
+          {postcard.frontImage ? (
+            <img className="postcard-shelf-image" src={postcard.frontImage} alt="" />
+          ) : (
+            <>
+              <span className="postcard-shelf-postmark" aria-hidden="true">CECE<br />MAIL</span>
+              <span className="postcard-shelf-label">postcard no. {String(postcard.id).padStart(2, '0')}</span>
+              <span className="postcard-shelf-title">{postcard.frontTitle || postcard.title}</span>
+              <span className="postcard-shelf-date">{postcard.date}</span>
+              <span className="postcard-shelf-cta">{postcard.paragraphs ? 'open your letter ↗' : 'coming soon ♡'}</span>
+            </>
+          )}
+        </button>
+      ))}
+      {openPostcard && <PostcardReader postcard={openPostcard} onClose={closeReader} />}
+    </>
+  )
 }
 
 export default function MiddleLetters() {
   const [activeCategory, setActiveCategory] = useState('travel')
-  const letters = activeCategory === 'travel' ? travelLetters() : projectLetters()
+  const letters = activeCategory === 'travel'
+    ? travelLetters()
+    : activeCategory === 'projects'
+      ? projectLetters()
+      : []
   const category = CATEGORIES[activeCategory]
 
   return (
@@ -164,10 +271,17 @@ export default function MiddleLetters() {
         <p key={activeCategory} className="middle-letters-note">{category.note}</p>
       </div>
 
-      <div className="letter-feed" key={activeCategory} role="tabpanel">
-        {letters.map((letter, index) => (
-          <LetterCover key={letter.id} {...letter} index={index} />
-        ))}
+      <div
+        className={`letter-feed${activeCategory === 'letters' ? ' letter-feed--postcards' : ''}`}
+        key={activeCategory}
+        role="tabpanel"
+        aria-label={`${category.label} collection`}
+      >
+        {activeCategory === 'letters'
+          ? <PostcardShelf />
+          : letters.map((letter, index) => (
+            <LetterCover key={letter.id} {...letter} index={index} />
+          ))}
       </div>
     </section>
   )

@@ -319,7 +319,7 @@ function CatGuide() {
       : null
   )
   const hideDisplayedMessage = Boolean(guideMessage && isMessageHidden)
-  const sprite = hasActiveGuide && !isSleeping
+  const sprite = hasActiveGuide && !isSleeping && phase !== Phase.WALKING
     ? catSide
     : {
       [Phase.INITIAL_SEATED]: catFront,
@@ -429,7 +429,7 @@ function CatGuide() {
   }, [applyPosition, enabled, hasActiveGuide, isPositioned, phase, positionRef, sendEvent])
 
   useEffect(() => {
-    if (!enabled || phase !== Phase.WALKING || hasActiveGuide || !isPositioned) return undefined
+    if (!enabled || phase !== Phase.WALKING || !isPositioned) return undefined
 
     const wrapper = wrapperRef.current
     const bounds = wrapper.getBoundingClientRect()
@@ -469,16 +469,16 @@ function CatGuide() {
 
     frame = window.requestAnimationFrame(walk)
     return () => window.cancelAnimationFrame(frame)
-  }, [applyPosition, enabled, hasActiveGuide, isPositioned, phase, positionRef, sendEvent])
+  }, [applyPosition, enabled, isPositioned, phase, positionRef, sendEvent])
 
   useEffect(() => {
-    if (!enabled || phase !== Phase.WALKING || hasActiveGuide) return undefined
+    if (!enabled || phase !== Phase.WALKING) return undefined
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
     const timer = window.setInterval(() => {
       setFrameIndex(index => (index + 1) % 2)
     }, CAT_GUIDE_TIMINGS.walkingFrame)
     return () => window.clearInterval(timer)
-  }, [enabled, hasActiveGuide, phase])
+  }, [enabled, phase])
 
   useEffect(() => {
     const wrapper = wrapperRef.current
@@ -486,18 +486,30 @@ function CatGuide() {
 
     const updateBubblePlacement = () => {
       const bounds = wrapper.getBoundingClientRect()
-      setBubblePlacement(
-        window.innerWidth - bounds.right >= 190 ? 'right' : 'left',
-      )
-      setBubbleVerticalPlacement(
-        bounds.top >= window.innerHeight / 2 ? 'above' : 'below',
-      )
+      if (phase === Phase.WALKING && positionRef.current) {
+        setBubblePlacement(
+          positionRef.current.x < window.innerWidth / 2 ? 'right' : 'left',
+        )
+        setBubbleVerticalPlacement('walking')
+      } else if (phase === Phase.SLEEPING) {
+        setBubblePlacement(
+          window.innerWidth - bounds.right >= 190 ? 'right' : 'left',
+        )
+        setBubbleVerticalPlacement('sleeping')
+      } else {
+        setBubblePlacement(
+          window.innerWidth - bounds.right >= 190 ? 'right' : 'left',
+        )
+        setBubbleVerticalPlacement(
+          bounds.top >= window.innerHeight / 2 ? 'above' : 'below',
+        )
+      }
     }
 
     updateBubblePlacement()
     window.addEventListener('resize', updateBubblePlacement)
     return () => window.removeEventListener('resize', updateBubblePlacement)
-  }, [displayedMessage, isPositioned])
+  }, [displayedMessage, isPositioned, phase, positionRef])
 
   return (
     <div
