@@ -1,76 +1,7 @@
 // src/components/ResearchSection.jsx
 
 import '../styles/Research.css'
-
-import dnaPhoto from '../assets/dna_origami_research.png'
-import rehabPhoto from '../assets/rehabilitation_research.png'
-
-export const PROJECTS = [
-  {
-    id: 'personal-organiser',
-
-    title:
-      'Personal Organiser — Interactive Prototype',
-
-    description:
-      'An ongoing digital product exploring personalised planning, organisation and behavioural design.',
-
-    skills: [
-      'React',
-      'UX/UI Design',
-      'Product Development',
-      'Behavioural Design',
-    ],
-
-    prototypeUrl:
-      'https://organiserprototype.netlify.app',
-  },
-
-  {
-    id: 'criminal-rehabilitation',
-
-    title:
-      'Criminal Rehabilitation and Reoffending',
-
-    description:
-      'My Extended Project Qualification exploring whether rehabilitation programmes can reduce reoffending and support long-term behavioural change.',
-
-    skills: [
-      'Criminology',
-      'Behavioural Psychology',
-      'Literature Review',
-      'Data Analysis',
-    ],
-
-    image: rehabPhoto,
-
-    imagePosition:
-      'center 40%',
-  },
-
-  {
-    id: 'dna-origami',
-
-    title:
-      'DNA Origami and Emerging Biotechnology',
-
-    description:
-      'An exploration of how DNA can be used as a structural material in developing areas of science and medicine.',
-
-    skills: [
-      'Biotechnology',
-      'Nanotechnology',
-      'Scientific Analysis',
-      'Literature Review',
-    ],
-
-    image: dnaPhoto,
-
-    imagePosition:
-      'center 40%',
-  },
-]
- 
+import { PROJECTS } from './projectData.js'
 
 export default function ResearchSection() {
   return (
@@ -85,18 +16,16 @@ export default function ResearchSection() {
       <header className="research-header">
 
         <p className="research-label">
-          Academic & Independent Work
+          Independent Digital Project
         </p>
 
         <h2 className="research-heading">
-          Research & Projects
+          Personal Organiser
         </h2>
 
         <p className="research-intro">
-          A selection of my academic research,
-          scientific work and independent digital
-          projects exploring behaviour, technology
-          and design.
+          An ongoing digital product exploring personalised planning,
+          organisation and behavioural design.
         </p>
 
       </header>
@@ -276,44 +205,6 @@ export default function ResearchSection() {
                       project.imagePosition,
                   }}
                 />
-
-                {/* =============================
-                    REHABILITATION OVERLAY
-                ============================== */}
-
-                {project.id ===
-                  'criminal-rehabilitation' && (
-                    <div className="neural-overlay">
-
-                      <div className="pulse-node node-1" />
-                      <div className="pulse-node node-2" />
-                      <div className="pulse-node node-3" />
-                      <div className="pulse-node node-4" />
-                      <div className="pulse-node node-5" />
-
-                      <div className="scanner-line" />
-
-                    </div>
-                  )}
-
-                {/* =============================
-                    DNA OVERLAY
-                ============================== */}
-
-                {project.id ===
-                  'dna-origami' && (
-                    <div className="dna-overlay">
-
-                      <div className="pulse-node-teal dna-node-1" />
-                      <div className="pulse-node-teal dna-node-2" />
-                      <div className="pulse-node-teal dna-node-3" />
-                      <div className="pulse-node-teal dna-node-4" />
-                      <div className="pulse-node-teal dna-node-5" />
-
-                      <div className="scanner-line-teal" />
-
-                    </div>
-                  )}
 
               </div>
 

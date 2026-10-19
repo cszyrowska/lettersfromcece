@@ -7,7 +7,7 @@ export const CAT_GUIDE_TIMINGS = {
   hoverMessage: 2300,
   welcomeMessage: 3000,
   jumpArc: 82,
-  bottomInset: 12,
+  bottomInset: 4,
 }
 
 export const CAT_GUIDE_WELCOME = 'Curious paws welcome. Hover around for little clues.'

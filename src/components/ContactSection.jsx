@@ -18,18 +18,11 @@ const CONTACT_LINKS = [
     note: 'photos & everyday bits',
   },
   {
-    id: 'linkedin',
-    label: 'LinkedIn',
-    href: 'https://linkedin.com/in/your-linkedin',
-    glyph: 'in',
-    note: 'work & projects',
-  },
-  {
-    id: 'facebook',
-    label: 'Facebook',
-    href: 'https://facebook.com/your.facebook',
-    glyph: 'f',
-    note: 'find me there',
+    id: 'tiktok',
+    label: 'TikTok',
+    href: 'https://www.tiktok.com/@cecyliaaaa',
+    glyph: '♪',
+    note: 'videos & little adventures',
   },
   {
     id: 'youtube',
